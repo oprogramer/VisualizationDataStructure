@@ -6,6 +6,7 @@
 package visualizationdatastructure;
 
 
+import backend.BST.BSTPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -34,7 +36,7 @@ public class HlavneOkno extends JFrame{
     private void init(){
         
     initMenu();
-    
+    initOkno();
     this.setPreferredSize(new Dimension(1280, 768));
     
     this.pack();
@@ -44,6 +46,16 @@ public class HlavneOkno extends JFrame{
     
    
     
+    }
+    
+    private void initOkno(){
+        JTabbedPane pane=new JTabbedPane();
+        
+        BSTPanel panel=new BSTPanel(0, 0, 1280, 768);
+        pane.add("BST",panel);
+        
+        add(pane);
+        
     }
     
     private void initMenu(){
