@@ -47,6 +47,10 @@ public abstract class Uzol {
     public Color getFarbuUzadia(){
         return farba.farbaUzadia;
     }
+    
+    public void setFarbu(FarbaUzlu pC){
+        farba=pC;
+    }
     public String getStringHod(){
         return String.valueOf(hod);
     }

@@ -8,8 +8,10 @@ package backend.BST;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import visualizationdatastructure.Scena;
@@ -30,36 +32,38 @@ public class BSTPanel extends JPanel{
         super();
         sirka=pSirka;
         vyska=pVyska;
-        setBounds(pX, pY, sirka, vyska);
+        //setBounds(pX, pY, sirka, vyska);
+        setLocation(pX, pY);
+        setPreferredSize(new Dimension(sirka, vyska));
+        setLayout(new BorderLayout(5, 5));
+        
         border=BorderFactory.createTitledBorder("");
         border.setTitleJustification(TitledBorder.CENTER);
-        border.setTitleFont(new Font("Sans-serif", Font.ITALIC, 12));
-        border.setTitle("Na picu");
+        border.setTitleFont(new Font("Sans-serif", Font.ITALIC, 12)); 
         setBorder(border);
-        setLayout(new BorderLayout());
+        
         initBST();
-        //initScenu();
-        scena=new Scena(strom, 2, 2, 80 , 80);
-        scena.setBackground(Color.red);
-        add(scena,BorderLayout.CENTER);
+        initScenu();
+        
+        
+        
+        JButton b=new JButton("aaaaaaaaaaa");
+        b.setPreferredSize(new Dimension((int)(sirka*0.33), vyska));
+        add(b,BorderLayout.LINE_END);
+        BSTTlacidla ovladanie=new BSTTlacidla(strom);
+        add(ovladanie,BorderLayout.PAGE_END);
     }
     
     private void initScenu(){
-        scena=new Scena(strom,0, 0, sirka, vyska);
-        //scena.setObrazok(img);
+        scena=new Scena(strom, 2, 2, sirka , (int)(vyska*0.75));
+        scena.setBackground(Color.red);
         scena.start();
-        add(scena);
+        add(scena,BorderLayout.CENTER);
+        
     }
     private void initBST(){
-        strom=new BST();
-        strom.insert(40);
-        strom.insert(20);
-        strom.insert(10);
-        strom.insert(5);
-        strom.insert(50);
-        strom.insert(60);
-        strom.insert(70);
-        strom.insert(15);
+        strom=new BST(this);
+        
         
         
     }

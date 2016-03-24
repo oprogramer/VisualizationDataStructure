@@ -8,6 +8,7 @@ package visualizationdatastructure;
 import backend.Struktury;
 import com.sun.javafx.animation.TickCalculation;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -32,18 +33,20 @@ public class Scena extends JComponent implements ActionListener{
     
     public Scena(Struktury pS,int pX,int pY,int pSirka,int pVyska){
         super();
-        setBounds(pX, pY, pSirka, pVyska);
-        setBackground(Color.red);
+        
+        setLocation(pX, pY);
+        setPreferredSize(new Dimension(pSirka, pVyska));
+        
         border=BorderFactory.createTitledBorder("");
         border.setTitleJustification(TitledBorder.CENTER);
         border.setTitleFont(new Font("Sans-serif", Font.ITALIC, 12));
-        border.setTitle("Scena");
+        
         setBorder(border);
-        prestavka=1000;
+        prestavka=80;
         casovac=new Timer(prestavka, this);
         s=pS;
         
-        img=new BufferedImage(1280, 780, BufferedImage.TYPE_INT_ARGB);
+        
     }
     
    
@@ -52,14 +55,6 @@ public class Scena extends JComponent implements ActionListener{
         casovac.start();
     }
     
-    public void setObrazok(BufferedImage pImg){
-        img=pImg;
-    }
-
-    
-
-    
-
     @Override
     public void actionPerformed(ActionEvent e) {
         
@@ -69,9 +64,9 @@ public class Scena extends JComponent implements ActionListener{
 
     @Override
     public void paint(Graphics g) {
-       // super.paint(g);
+        super.paint(g);
         
-        
+        img=new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
         s.NakresliStrukturu(img.getGraphics());
         g.drawImage(img, 0, 0, null);
     }

@@ -19,6 +19,15 @@ public class Nadpisy {
     public static String menuItemUloziť="Uložiť";
     public static String koniec="Zavrieť";
     public static String menuItemStromy="Stromy";
+    public static String ovladanie="Ovládanie";
+    public static String btnVloz="Vloz";
+    public static String btnNajdi="Najdi";
+    public static String btnZmaz="Zmaz";
+    public static String btnVypis="Zmaz";
+    public static String btnClear="Uvoľniť";
+    public static String btnRandom="Nahodne";
+    public static String chbPreOrder="PreOrder";
+    public static String chbInOrder="InOrder";
+    public static String chbPostOrder="PostOrder";
     
-   
 }

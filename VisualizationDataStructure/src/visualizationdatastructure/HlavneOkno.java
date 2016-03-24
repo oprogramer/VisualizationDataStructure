@@ -8,14 +8,10 @@ package visualizationdatastructure;
 
 import backend.BST.BSTPanel;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,13 +30,18 @@ public class HlavneOkno extends JFrame{
     }
     
     private void init(){
-        
+    
+    this.setPreferredSize(new Dimension(1280, 768));
+    this.setMinimumSize(new Dimension(800, 600));
+    this.setSize(this.getPreferredSize());    
+    
     initMenu();
     initOkno();
-    this.setPreferredSize(new Dimension(1280, 768));
+    
+        
     
     this.pack();
-    this.setSize(this.getPreferredSize());
+    
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
@@ -50,8 +51,8 @@ public class HlavneOkno extends JFrame{
     
     private void initOkno(){
         JTabbedPane pane=new JTabbedPane();
-        
-        BSTPanel panel=new BSTPanel(0, 0, 1280, 768);
+       
+        BSTPanel panel=new BSTPanel(0, 0, (int)(this.getWidth()*0.75), this.getHeight());
         pane.add("BST",panel);
         
         add(pane);

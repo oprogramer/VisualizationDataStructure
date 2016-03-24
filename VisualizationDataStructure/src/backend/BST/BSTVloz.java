@@ -5,39 +5,102 @@
  */
 package backend.BST;
 
+import backend.FarbaUzlu;
 import com.sun.javafx.font.t2k.T2KFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ondrej
  */
-public class BSTVloz implements Runnable{
+public class BSTVloz implements Runnable {
+
     private Thread vlakno;
     private BST T;
     private BSTUzol u;
-    private int hod;
-    
-    public BSTVloz(BST pT,BSTUzol pU){
-        T=pT;
-        u=pU;
-        hod=u.getHod();
+    private boolean uspesne;
+
+    public BSTVloz(BST pT, BSTUzol pU) {
+        T = pT;
+        u = pU;
+
+        start();
     }
-    
-    public void start(){
-        if(vlakno==null){
-            vlakno=new Thread(this);
+
+    private void start() {
+        if (vlakno == null) {
+            vlakno = new Thread(this);
             vlakno.start();
-        }
-    }
-    public void stop(){
-        if(vlakno!=null){
-            vlakno.stop();
-            vlakno=null;
         }
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (T.getKoren() == null) {
+
+            u.setSuradnice(T.panel.scena.getWidth() / 2, 50);
+            T.setKoren(u);
+            pause();
+            uspesne = true;
+        } else {
+            uspesne = insert(T.getKoren());
+        }
+        if (uspesne) {
+            u.setFarbu(FarbaUzlu.normalny);
+            T.prepocitajVyskuStromu();
+            T.prepocitanieSuradnic();
+
+        }
+        
+    }
+
+    private boolean insert(BSTUzol pU) {
+
+        //Ked vlozime hodnotu ktora uz je vlozena v strome
+        //Zahodime ho lebo v strome sa nemozu nachadzat rovnake hodnoty
+        if (pU.getHod() == u.getHod()) {
+
+            u.setFarbu(FarbaUzlu.existujuci);
+            pause();
+            T.zmazNovy();
+            return false;
+        } else {
+            u.setSuradnice(pU.getX(), pU.getY()-35);
+            pause();
+            if (u.getHod() < pU.getHod()) {
+                if (pU.getLavySyn() == null) {
+                    u.setSuradnice(pU.getX() - u.getVelkost(), pU.getY() + u.getVelkost());
+                    pU.setLavySyn(u);
+                    u.setRodic(pU);
+                    return true;
+                } else {
+                    
+                    insert(pU.getLavySyn());
+                }
+            }
+            if (u.getHod() > pU.getHod()) {
+                if (pU.getPravySyn() == null) {
+                    u.setSuradnice(pU.getX() + u.getVelkost(), pU.getY() + u.getVelkost());
+                    pU.setPravySyn(u);
+                    u.setRodic(pU);
+                    return true;
+                } else {
+                    
+                    insert(pU.getPravySyn());
+                }
+            }
+            return true;
+        }
+
+    }
+
+    private void pause() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BSTVloz.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

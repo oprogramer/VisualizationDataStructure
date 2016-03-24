@@ -15,8 +15,8 @@ public class FarbaUzlu {
     public static FarbaUzlu normalny=new FarbaUzlu(Color.BLACK, Color.WHITE);
     public static FarbaUzlu najdeny=new FarbaUzlu(Color.GREEN, Color.BLACK);
     public static FarbaUzlu zmazani=new FarbaUzlu(Color.RED, Color.BLACK);
-    public static FarbaUzlu vlozenie=new FarbaUzlu(Color.darkGray, Color.WHITE);
-    
+    public static FarbaUzlu vlozenie=new FarbaUzlu(Color.lightGray, Color.WHITE);
+    public static FarbaUzlu existujuci=new FarbaUzlu(Color.ORANGE, Color.RED);
     
     
     
