@@ -99,7 +99,7 @@ public class BSTUzol extends Uzol {
                     }
                 }).start();
 
-                System.out.println("Pokracujem kim posuva");
+               
             }
         }
         if (getLavySyn() != null) {

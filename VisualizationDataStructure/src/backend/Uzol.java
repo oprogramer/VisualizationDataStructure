@@ -64,6 +64,9 @@ public abstract class Uzol {
         return hod;
     }
 
+    public void setHod(int pHod) {
+        this.hod = pHod;
+    }
     public int getX() {
         return x;
     }

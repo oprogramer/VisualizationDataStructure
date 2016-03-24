@@ -41,7 +41,7 @@ public class BSTDelete implements Runnable {
     @Override
     public void run() {
         DS.setKoren(Zmaz(DS.getKoren(), hod));
-        //DS.prepocitajVyskuStromu();
+        DS.prepocitajVyskuStromu();
         DS.prepocitanieSuradnic();
     }
 
@@ -74,13 +74,24 @@ public class BSTDelete implements Runnable {
                             uzoly=uzol.getY();
                             pUzolRodic=pUzol.getRodic();
                             uzolRodic=uzol.getRodic();
-                            //Odpojime tie dva uzly ktore ideme vymenit
+                            BSTUzol uPS=uzol.getPravySyn();
+                            BSTUzol uLS=uzol.getLavySyn();
+//                            //Odpojime tie dva uzly ktore ideme vymenit
                             uzol.setRodic(null);
                             pUzol.setRodic(null);
                             pUzol.getPravySyn().setRodic(null);
                             pUzol.getLavySyn().setRodic(null);
-                            //Koniec odpojovanie 
-                            //Posuvame uzly kim si nevimenia polohy
+                            
+                            if(uPS!=null){
+                                uPS.setRodic(null);
+                            }
+                            //Nepotrebne nastavovat kedze hladame najlavesi v pravom strome 
+                            //takze toto bude vydy null
+                            if(uLS!=null){
+                                uLS.setRodic(null);
+                            }
+//                            //Koniec odpojovanie 
+//                            //Posuvame uzly kim si nevimenia polohy
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -90,16 +101,38 @@ public class BSTDelete implements Runnable {
                             }).start();
                             pUzol.setSuradnice(uzolx, uzoly);
                             //Koniec vymen poloh
-                            uzol.setLavySyn(pUzol.getLavySyn());
-                            uzol.setPravySyn(pUzol.getPravySyn());
+                            
                             uzol.setRodic(pUzolRodic);
-                            pUzolRodic.setLavySyn(uzol);
-                            pUzol.getPravySyn().setRodic(uzol);
+                            uzol.setPravySyn(pUzol.getPravySyn());
+                            uzol.setLavySyn(pUzol.getLavySyn());
                             pUzol.getLavySyn().setRodic(uzol);
-                            pUzol.setLavySyn(uzol.getLavySyn());
-                            pUzol.setPravySyn(uzol.getPravySyn());
-                            pUzol.setRodic(uzolRodic);
+                            pUzol.getPravySyn().setRodic(uzol);
+                            
+                            
+                            if(pUzolRodic.getPravySyn()==pUzol){
+                                System.out.println("Pravy syn");
+                                pUzolRodic.setPravySyn(uzol);
+                                System.out.println(""+pUzolRodic.getPravySyn().getHod());
+                            }
+                            if(pUzolRodic.getLavySyn()==pUzol){
+                                System.out.println("Lavy syn");
+                                pUzolRodic.setLavySyn(uzol);
+                                System.out.println(""+pUzolRodic.getLavySyn().getHod());
+                            }
                             uzolRodic.setLavySyn(pUzol);
+                            pUzol.setRodic(uzolRodic);
+                            pUzol.setPravySyn(uPS);
+                            pUzol.setLavySyn(uLS);
+                            if(uPS!=null){
+                                uPS.setRodic(pUzol);
+                            }
+                            //Nepotrebne nastavovat kedze hladame najlavesi v pravom strome 
+                            //takze toto bude vydy null
+                            if(uLS!=null){
+                                uLS.setRodic(pUzol);
+                            }
+                            uzol.setPravySyn(Zmaz(uzol.getPravySyn(), pUzol.getHod()));
+                            return uzol;
                         }
                     }
                     
