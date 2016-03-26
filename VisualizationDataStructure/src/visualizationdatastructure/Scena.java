@@ -6,8 +6,8 @@
 package visualizationdatastructure;
 
 import backend.Struktury;
-import com.sun.javafx.animation.TickCalculation;
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -68,6 +68,7 @@ public class Scena extends JComponent implements ActionListener{
         
         img=new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
         s.NakresliStrukturu(img.getGraphics());
+        
         g.drawImage(img, 0, 0, null);
     }
     

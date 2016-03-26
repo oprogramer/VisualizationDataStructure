@@ -29,6 +29,6 @@ public abstract class Struktury {
     public abstract void zmaz(int pHod);
     public abstract void NakresliStrukturu(Graphics g);
     public abstract void clean();
-    
+    public abstract void vypis();
 }
 

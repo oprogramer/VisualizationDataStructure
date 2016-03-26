@@ -6,10 +6,12 @@
 package backend.BST;
 
 import backend.Uzol;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +26,7 @@ public class BSTUzol extends Uzol {
     private int tox, toy;
     private int vyska; //je vyska stromu, vypocita sa tak ze kolko maju uzlov pravy a lavy podstrom
     //a vecsia hodnota z tych dvoch je vyska stromu, na zaciatku je 1
-    private int vyskaPraveho, vyskaLaveho;
+    private int vyskaPraveho, vyskaLaveho,pocetDeti;
 
     //Tento konstruktor nastavi uzol suradnice na 0,0
     public BSTUzol(int pHod, BSTUzol pRodic) {
@@ -32,7 +34,7 @@ public class BSTUzol extends Uzol {
         rodic = pRodic;
         lavySyn = null;
         pravySyn = null;
-        vyska = vyskaLaveho = vyskaPraveho = 0;
+        vyska = vyskaLaveho = vyskaPraveho = pocetDeti=0;
     }
 
     //tento konstruktor nastavi konkretne hodnoty suradnic noveho uzla
@@ -46,15 +48,22 @@ public class BSTUzol extends Uzol {
 
     //Prepocitame vysky pre
     public void prepocitajVysku() {
-
+        pocetDeti=0;
         if (getLavySyn() != null) {
             vyskaLaveho = getLavySyn().getVyska();
+            pocetDeti+=getLavySyn().getPocetDeti()+1;
+        }else{
+            vyskaLaveho=0;
         }
 
         if (getPravySyn() != null) {
             vyskaPraveho = getPravySyn().vyska;
+            pocetDeti+=getPravySyn().getPocetDeti()+1;
+            
+        }else{
+            vyskaPraveho=0;
         }
-
+        
         vyska = (Math.max(vyskaLaveho, vyskaPraveho) + 1);
 
     }
@@ -66,14 +75,20 @@ public class BSTUzol extends Uzol {
     public void nakresli(Graphics g) {
 
         if (!isRoot()) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(1));
             g.setColor(Color.red);
             g.drawLine(x, y, getRodic().getX(), getRodic().getY());
         }
         g.setColor(farba.farbaUzadia);
         g.fillOval(x - velkost / 2, y - velkost / 2, velkost, velkost);
         if (oznaceny) {
-            g.setColor(Color.red);
-            g.drawOval(x - (velkost / 2) - 2, y - (velkost / 2) - 2, velkost + 4, velkost + 4);
+//            g.setColor(Color.red);
+//            g.drawOval(x - (velkost / 2), y - (velkost / 2) , velkost , velkost );
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(3));
+            g2.setColor(Color.red);
+            g2.drawOval(x - (velkost / 2), y - (velkost / 2) , velkost , velkost );
         }
 
         g.setColor(farba.farbaFontu);
@@ -81,6 +96,8 @@ public class BSTUzol extends Uzol {
         String s = getStringHod();
         FontMetrics fm = g.getFontMetrics();
         g.drawString(s, x - fm.stringWidth(s) / 2, (y - fm.getHeight() / 2) + fm.getAscent());
+        g.setColor(Color.BLACK);
+        g.drawString(String.valueOf(getPocetDeti()), x, y-velkost/2);
     }
     //**********koniec vykreslenia*****
 
@@ -105,7 +122,7 @@ public class BSTUzol extends Uzol {
         if (getLavySyn() != null) {
             //Nastavime pre lavy premenu tox a zavolame metodu posun pre laveho
             if (getLavySyn().getPravySyn() != null) {
-                getLavySyn().setTox(pStred - velkost * (getLavySyn().getPravySyn().getVyskaLaveho() + getLavySyn().getPravySyn().getVyskaPraveho() + 2));
+                getLavySyn().setTox(pStred - velkost * ((getLavySyn().getPravySyn().getPocetDeti()+1)+1));
 
             } else {
                 getLavySyn().setTox(pStred - velkost * (getLavySyn().vyskaPraveho + 1));
@@ -129,7 +146,7 @@ public class BSTUzol extends Uzol {
             //Nastavime premenu pre pravy tox a  zavolame metodu posun pre praveho 
             //getPravySyn().setTox(pStred + velkost * (getPravySyn().vyskaLaveho + 1));
             if (getPravySyn().getLavySyn() != null) {
-                getPravySyn().setTox(pStred + velkost * (getPravySyn().getLavySyn().getVyskaLaveho() + getPravySyn().getLavySyn().getVyskaPraveho() + 2));
+                getPravySyn().setTox(pStred + velkost * ((getPravySyn().getLavySyn().getPocetDeti()+1)+1));
             } else {
                 getPravySyn().setTox(pStred + velkost * (getPravySyn().vyskaLaveho + 1));
             }
@@ -155,8 +172,8 @@ public class BSTUzol extends Uzol {
 
         int kroky = 10;
 
-        while (getX() != getTox() || getY() != getToy()) {
-
+        while (getX() != getTox() || getY() != getToy() || kroky>0) {
+            
             if (getX() != getTox()) {
                 x += (getTox() - getX()) / kroky;
             }
@@ -247,6 +264,9 @@ public class BSTUzol extends Uzol {
 
     public void setRodic(BSTUzol pRodic) {
         this.rodic = pRodic;
+    }
+    public int getPocetDeti(){
+        return pocetDeti;
     }
 
 }

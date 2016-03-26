@@ -43,14 +43,14 @@ public class BSTNajdi implements Runnable{
     private void Najdi(BSTUzol pUzol,int pHod){
         pUzol.oznac();
         pause();
-        System.out.println("Dalej");
+        
         if(pUzol.getHod()==pHod){
-            System.out.println("Rovnake");
+            
             pUzol.setFarbu(FarbaUzlu.najdeny);
             pause();
             pUzol.setFarbu(FarbaUzlu.normalny);
             pUzol.odznac();
-            System.err.println("Koniec rovnake");
+            
         }
         if(pHod<pUzol.getHod()){
             

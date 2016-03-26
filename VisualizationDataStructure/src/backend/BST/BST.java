@@ -44,24 +44,24 @@ public class BST extends Struktury{
     @Override
     public void NakresliStrukturu(Graphics pG) {
         g=pG;
-        //g.setColor(g.getColor());
-        //g.fillRect(0, 0, panel.scena.getWidth(), panel.scena.getHeight());
+        
         if(novy!=null){
             novy.nakresli(g);
         }
         if(koren!=null)
         postorder(koren);
         
+        
     }
 
     
     private void postorder(BSTUzol pUzol){
         if(pUzol.getLavySyn()!=null){
-            //System.out.println("Idem na lavy");
+            
             postorder(pUzol.getLavySyn());
         }
         if(pUzol.getPravySyn()!=null){
-            //System.out.println("idem na pravy");
+           
             postorder(pUzol.getPravySyn());
         }
         
@@ -76,6 +76,7 @@ public class BST extends Struktury{
     //a zavola sa pre kazdy uzol metoda na prepocitanie vysky uzla a jeho podstromov
     
     public void prepocitajVyskuStromu(){
+        if(koren!=null)
         prepocitajVyskuStromu(koren);
     }
     
@@ -95,7 +96,7 @@ public class BST extends Struktury{
     //koren bude mat nastavenu suradnicu x na stred scene a y na 50px
     //a potom pre kazdy uzol nastavi take suradnice ktore prepocita na zaklade jeho podstromov
     public void prepocitanieSuradnic(){
-        //koren.setSuradnice(panel.scena.getWidth()/2, 50);
+        if(koren!=null)
         koren.prepocitaj(panel.scena.getWidth()/2);
     }
     @Override
@@ -119,6 +120,22 @@ public class BST extends Struktury{
     public void clean() {
         koren=null;
         novy=null;
+    }
+
+    @Override
+    public void vypis() {
+        inorderRec(koren);
+        System.out.println("");
+    }
+    
+
+    // A utility function to do inorder traversal of BST
+    public void inorderRec(BSTUzol root) {
+        if (root != null) {
+            inorderRec(root.getLavySyn());
+            System.err.print(root.getHod()+" ");
+            inorderRec(root.getPravySyn());
+        }
     }
     
     
