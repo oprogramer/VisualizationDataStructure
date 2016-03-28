@@ -8,10 +8,14 @@ package backend.BST;
 import backend.FarbaUzlu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 
 /**
- *
+ * Trieda je algoritmus na hľadanie prvku z údajovej štruktúry binarny 
+ * vyhľadávaci strom. Algoritmus sa uskutoční v samostatnom vlakne. 
+ * Algoritmus prejde udajovou štrukturou a bude vyznačovať uzly v ktorych sa 
+ * sa nachadza a ked najde hladanu hodnotu tak zmení farbu uzlu na najdeny.
+ * 
  * @author ondrej
  */
 public class BSTNajdi implements Runnable{
@@ -19,7 +23,15 @@ public class BSTNajdi implements Runnable{
     BST DS;
     int hod;
     
-    
+    /**
+     * Konštruktor ktorý vytvorý nový objekt triedy. Nastavy hodnoty pre
+     * štruktúru vktoréj sa má hľadať uzol a hodnotu ktorú hľadá.
+     * Nakoniec naštartuje vlakno ktoré ma naimplementovaný algoritmus na 
+     * zmazanie uzlu.
+     * 
+     * @param pDS -  údajová štruktúra z ktorej sa má zmazať uzol
+     * @param pHod - cele čislo, hodnota uzlu ktorý sa má zmazať
+     */
     public BSTNajdi(BST pDS,int pHod){
         this.DS=pDS;
         this.hod=pHod;
@@ -27,7 +39,10 @@ public class BSTNajdi implements Runnable{
         start();
         
     }
-    
+    /**
+     * Metoda naštartue vlakno. Ked neexistuje vlakno tak vytvori nove a 
+     * naštartuje ho.
+     */
     private void start(){
         if(vlakno==null){
             vlakno=new Thread(this);
@@ -73,10 +88,6 @@ public class BSTNajdi implements Runnable{
     }
     
      private void pause() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BSTVloz.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DS.pause(1000);
     }
 }

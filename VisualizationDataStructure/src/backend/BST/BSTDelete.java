@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backend.BST;
 
 import backend.FarbaUzlu;
+import backend.Struktury;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
- *
+ * Trieda je algoritmus na zmazanie prvku z údajovej štruktúry binarny 
+ * vyhľadávaci strom. Algoritmus sa uskutoční v samostatnom vlakne, ked sa uzol
+ * zmaže zavolá metody na prepočet vyšky stromu a suradnic všetkych uzlov.
+ * 
  * @author ondrej
  */
 public class BSTDelete implements Runnable {
@@ -29,28 +27,69 @@ public class BSTDelete implements Runnable {
     public BSTUzol pUzolRodic;
     public BSTUzol uzolRodic;
 
+    /**
+     * Konštruktor ktorý vytvorý nový objekt triedy. Nastavy hodnoty pre
+     * štruktúru z ktoréj sa ma zmazať uzol a hodnotu uzlu ktorý sa má zmazať.
+     * Nakoniec naštartuje vlakno ktoré ma naimplementovaný algoritmus na 
+     * zmazanie uzlu.
+     * 
+     * @param pDS -  údajová štruktúra z ktorej sa má zmazať uzol
+     * @param pHod - cele čislo, hodnota uzlu ktorý sa má zmazať
+     */
     public BSTDelete(BST pDS, int pHod) {
         this.DS = pDS;
         this.hod = pHod;
         start();
     }
 
+    /**
+     * Metoda naštartue vlakno. Ked neexistuje vlakno tak vytvori nove a 
+     * naštartuje ho.
+     */
     private void start() {
         if (vlakno == null) {
             vlakno = new Thread(this);
             vlakno.start();
         }
     }
-
+    
     @Override
     public void run() {
         DS.setKoren(Zmaz(DS.getKoren(), hod));
 
         DS.prepocitajVyskuStromu();
         DS.prepocitanieSuradnic();
-        DS.vypis();
+        
     }
-
+    /**
+     * Metoda ktorá implementuje algoritmus na zmazanie uzlu z údajovej štruktúry 
+     * binarny vyhľadávaci strom. Metoda vyžaduje uzol ktorý skúma a hodnotu ktorú
+     * ma zmazať. Ked bude strom prazdny vrati prazdnu hodnotu. Ked bude hodnota
+     * menšia ako hodnota skúmaného uzla tak rekurzivne zavola samu seba pre 
+     * levho syna toho uzla, a vratenu hodnotu nastaví ako lavého syna.
+     * Ak nie je menšia, skontorluje či nie je väčšia, ak ano tak rekurzivne 
+     * zavola samu seba pre pravého syna a vratenu hodnotu nastaví ako prevého 
+     * syna. Ak nie je ani väčšie tak skontroluje či sa rovnajú hodnota pre 
+     * mazanie a hodnota uzlu, ak ano skontroluje ktorú z troch možnosti má 
+     * využiť. Prvá je ked neobsahuje laveho syna potom ako ma praveho syna tak
+     * jemu nastavi rodica, uzol ktorý je rodicom skumaného uzla. Nakoniec vrati
+     * uzol ktorý je pravím synom aj ked bude null nevadi lebo uzol neobsahuje
+     * potomkov tak jeho rodic nebude mat viacej laveho syna. Ked uzol obsahuje 
+     * laveho syna tak skontroluje či obsahuje pravého ak nie tak nastavime 
+     * levemu rodiča, uzol ktorý je rodičom skumaného uzla, a vratime laveho syna.
+     * Tretia možnosť je ked skúmaný uzol obshuje oboch synov, potom najdeme 
+     * uzol v pravom podstrome s najmenšou hodnotou a vymeníme tie dva uzly. 
+     * Prvo oba odpojime od svojich rodicou a potomkou ale tie hodnoty si uložíme
+     * potom ked si vymenia polohy tak im nastavime hodnoty uzlov toho druheho.
+     * Potom metoda vola samu seba pre pravého syna a vratenu hodnotu nastavi ako 
+     * pravý syn. Tymto dotiahneme že zase najdeme uzol ktorý sme chcely zmazať 
+     * a opakujeme až kym nebude jeden z prvých dvoch prípadov.
+     * 
+     *  
+     * @param pUzol - uzol ktorý skúmame
+     * @param pHod - cele čislo, hodnota uzlu ktorého chceme zmazať
+     * @return uzol ktorý nastavime ako pravý alebo lavý syn skúmaného uzla
+     */
     private BSTUzol Zmaz(BSTUzol pUzol, int pHod) {
 
         if (DS.getKoren() == null) {
@@ -96,8 +135,10 @@ public class BSTDelete implements Runnable {
                 pUzol.setSuradnice(pUzol.getX(), 1000);
                 return pUzol.getLavySyn();
             } else {
-                
+                //Zistime uzol v pravom podstorme s najmenšou hodnotou
                 uzol = najmesiVpravomPodstrome(pUzol.getPravySyn());
+                //Uložime hodnoty uzlu ktorý chceme zmazat
+                //aby sme ich potom vedeli nastaviť uzlu z pravého podstomu
                 pUzolx = pUzol.getX();
                 pUzoly = pUzol.getY();
                 uzolx = uzol.getX();
@@ -150,21 +191,25 @@ public class BSTDelete implements Runnable {
 
                 pUzol.getLavySyn().setRodic(uzol);
 
+                //Ked je uzol ktorý chceme zmazať koren stromu, tak nema rodiča
+                //potom jeho rodičovi nemožme nastavovať praveho a laveho syna.
+                //Ked nie je koren tak potom potrebujeme nastaviť hodnoty
+                //praveho alebo laveho syna, rodičovi uzla ktorý mažeme a to
+                //ak je uzol pravy syn tak nastavime prevého syna na uzol z 
+                //pravého podstromu a ak je lavy tak nastavime lavého syna
                 if (pUzolRodic != null) {
                     if (pUzolRodic.getPravySyn() == pUzol) {
-                        System.out.println("Pravy syn");
                         pUzolRodic.setPravySyn(uzol);
-                        System.out.println("" + pUzolRodic.getPravySyn().getHod());
                     }
                     if (pUzolRodic.getLavySyn() == pUzol) {
-                        System.out.println("Lavy syn");
                         pUzolRodic.setLavySyn(uzol);
-                        System.out.println("" + pUzolRodic.getLavySyn().getHod());
                     }
                 } else {
                     DS.setKoren(uzol);
                 }
-
+                //Nastavime hodnoty pre uzol ktorý mažeme, hodnoty ktoré boli
+                //pre uzol z pravého podstromu. A ak mal potomkov tak im nastavime
+                //hodnotu rodiča na uzol ktorý chceme zmazať
                 pUzol.setPravySyn(uPS);
                 pUzol.setLavySyn(uLS);
                 if (uPS != null) {
@@ -175,6 +220,9 @@ public class BSTDelete implements Runnable {
                 if (uLS != null) {
                     uLS.setRodic(pUzol);
                 }
+                
+                //Nastavime praveho syna na uzol ktorý vrati metoda zmaz pre 
+                //preveho syna uzla z praveho podstromu
                 uzol.setPravySyn(Zmaz(uzol.getPravySyn(), pUzol.getHod()));
                 uzol.odznac();
                 uzol.setFarbu(FarbaUzlu.normalny);
@@ -187,7 +235,12 @@ public class BSTDelete implements Runnable {
         pUzol.setFarbu(FarbaUzlu.normalny);
         return pUzol;
     }
-
+    /**
+     * Metoda ktorá vrati uzol s najmenšou hodnotou v pravom podstrome 
+     * 
+     * @param pUzol - uzol v ktorom ma začať hladať
+     * @return - uzol sa najmenšou hodnotou
+     */
     private BSTUzol najmesiVpravomPodstrome(BSTUzol pUzol) {
         while (pUzol.getLavySyn() != null) {
             pUzol.oznac();
@@ -202,10 +255,6 @@ public class BSTDelete implements Runnable {
     }
     
     private void pause(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BSTDelete.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Struktury.pause(1000);
     }
 }

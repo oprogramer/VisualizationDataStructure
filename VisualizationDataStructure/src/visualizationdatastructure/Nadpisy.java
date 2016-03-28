@@ -23,11 +23,11 @@ public class Nadpisy {
     public static String btnVloz="Vloz";
     public static String btnNajdi="Najdi";
     public static String btnZmaz="Zmaz";
-    public static String btnVypis="Zmaz";
+    public static String btnVypis="Vypis";
     public static String btnClear="Uvoľniť";
     public static String btnRandom="Nahodne";
-    public static String chbPreOrder="PreOrder";
-    public static String chbInOrder="InOrder";
-    public static String chbPostOrder="PostOrder";
+    public static String rbPreOrder="PreOrder";
+    public static String rbInOrder="InOrder";
+    public static String rbPostOrder="PostOrder";
     
 }

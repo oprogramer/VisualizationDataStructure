@@ -17,24 +17,38 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import visualizationdatastructure.Nadpisy;
 
 /**
- *
- * @author ondrej
+ * Trieda ktorá vytvorí všetky potrebné ovladacie prvky pre údajovú štruktúru 
+ * binárny vyhľadavaci strom. Je to panel na ktorom budu všetky prvky.uthor ondrej
  */
-public class BSTTlacidla extends JPanel implements ActionListener {
+public class BSTTlacidla extends JPanel implements ActionListener,ChangeListener {
 
     TitledBorder border;
     Struktury s;
     JTextField poleVkladanie;
     Dimension preferedSize;
 
+    JRadioButton rbPreOrder;
+    JRadioButton rbInOrder;
+    JRadioButton rbPostOrder;
+    /**
+     * Konštruktor ktorý vytvorí objekt tejto triedy. Najprv nastavi graficke
+     * prvky panelu, nasledne inicializuje ovladcie prvky.
+     * 
+     * @param pS - údajová štruktúra ktorú maju prvky ovladat.
+     */
     public BSTTlacidla(Struktury pS) {
         setLayout(new BorderLayout(5, 5));
         border = BorderFactory.createTitledBorder("");
@@ -48,11 +62,11 @@ public class BSTTlacidla extends JPanel implements ActionListener {
 
         JPanel prvy = initPrvyRiadok();
         JPanel druhy = initDruhyRiadok();
-
+        JPanel slider=initSlider();
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(prvy);
         add(druhy);
-
+        add(slider);
     }
 
     @Override
@@ -69,10 +83,15 @@ public class BSTTlacidla extends JPanel implements ActionListener {
     public Dimension getPreferredSize() {
         return new Dimension(1280, 150); //To change body of generated methods, choose Tools | Templates.
     }
-
+    /**
+     * Metoda ktorá vytvori panel s ovladacimi prvkami v prvom rade
+     * 
+     * @return - panel ktorý obsahuje pole na vkladanie udaov, a tlačidla 
+     *           vlož,najdi,zmaz,nahodne a uvolni
+     */
     private JPanel initPrvyRiadok() {
         JPanel prvy = new JPanel();
-        prvy.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
+        prvy.setLayout(new FlowLayout(FlowLayout.CENTER, 5 , 5));
         //Vlozime na panel pole na vnasanie udajov
         poleVkladanie = new JTextField();
         poleVkladanie.setMinimumSize(preferedSize);
@@ -88,14 +107,67 @@ public class BSTTlacidla extends JPanel implements ActionListener {
         return prvy;
     }
 
+    /**
+     * Metoda ktorá vytvori panel s ovladacimi prvkami v druhom rade na 
+     * vypis štruktúry.
+     * 
+     * @return - panel ktorý obsahuje radion button pre vyber poradia vypisu
+     *              a tlačidlo ktoré spusti vypis
+     */
     private JPanel initDruhyRiadok() {
         JPanel druhy = new JPanel();
-
-        druhy.add(new JButton("AAAAAAAAAAAA"));
-
+        druhy.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        
+        rbPreOrder=new JRadioButton(Nadpisy.rbPreOrder);
+        rbInOrder=new JRadioButton(Nadpisy.rbInOrder);
+        rbPostOrder=new JRadioButton(Nadpisy.rbPostOrder);
+        
+        ButtonGroup group=new ButtonGroup();
+        group.add(rbPreOrder);
+        group.add(rbInOrder);
+        group.add(rbPostOrder);
+        
+        druhy.add(rbPreOrder);
+        
+        druhy.add(rbInOrder);
+        druhy.add(rbPostOrder);
+        
+        JButton vypis=initVypis();
+        druhy.add(vypis);
         return druhy;
     }
+    /**
+     * Metoda ktorá vytvorí panel na ktorom bude slider na ovladanie rychlosti 
+     * animácie.
+     * 
+     * @return - panel s sliderom 
+     */
+    private JPanel initSlider(){
+        JPanel slider=new JPanel();
+        int FPS_MIN = 0;
+        int FPS_MAX = 390;
+        int FPS_INIT = 200;
+        
+        //Create the slider.
+        JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
+                                              FPS_MIN, FPS_MAX, FPS_INIT);
+        
 
+        framesPerSecond.addChangeListener(this);
+
+        //Turn on labels at major tick marks.
+
+        framesPerSecond.setBorder(
+                BorderFactory.createEmptyBorder(0,0,10,0));
+        framesPerSecond.setPreferredSize(new Dimension(800, 15));
+        s.setDelay(framesPerSecond.getValue()/FPS_INIT);
+        slider.add(framesPerSecond);
+        
+        
+        return slider;
+    }
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         String txt = poleVkladanie.getText();
@@ -190,9 +262,29 @@ public class BSTTlacidla extends JPanel implements ActionListener {
 
                 break;
             }
+            case "vypis":{
+                if(rbInOrder.isSelected()){
+                    System.err.println("vzpis inorder");
+                }
+                if(rbPostOrder.isSelected()){
+                    System.err.println("Vypis postorder");
+                    
+                }
+                if(rbPreOrder.isSelected()){
+                    System.err.println("Vypis preorder");
+                }
+            }
         }
     }
 
+    /**
+     * Metoda vytvori tlačidlo na spušťanie algoritmu na vkladanie uzlov. Najprv
+     * vytvori nove tlačidlo ktrému nastaví listener v tejto triede, potom
+     * komadnu na akciu aby listener ktoré je to tlačidlo, taktiež nastavime 
+     * aj menimalnu velkosť a vratime tlačidlo.
+     * 
+     * @return - tlačidlo ktoré spusti algoritmus na vkladanie uzlov 
+     */
     private JButton initBtnVloz() {
         JButton vloz = new JButton(Nadpisy.btnVloz);
         vloz.addActionListener(this);
@@ -202,6 +294,14 @@ public class BSTTlacidla extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Metoda vytvori tlačidlo na spušťanie algoritmu na hľadanie uzlov. Najprv
+     * vytvori nove tlačidlo ktrému nastaví listener v tejto triede, potom
+     * rozkaz na akciu aby listener ktoré je to tlačidlo, taktiež nastavime 
+     * aj menimalnu velkosť a vratime tlačidlo.
+     * 
+     * @return - tlačidlo ktoré spusti algoritmus na hľadanie uzlov 
+     */
     private JButton initBtnNajdi() {
         JButton najdi = new JButton(Nadpisy.btnNajdi);
         najdi.addActionListener(this);
@@ -210,6 +310,14 @@ public class BSTTlacidla extends JPanel implements ActionListener {
         return najdi;
     }
 
+    /**
+     * Metoda vytvori tlačidlo na spušťanie algoritmu na zmazanie uzlov. Najprv
+     * vytvori nove tlačidlo ktrému nastaví listener v tejto triede, potom
+     * rozkaz na akciu aby listener ktoré je to tlačidlo, taktiež nastavime 
+     * aj menimalnu velkosť a vratime tlačidlo.
+     * 
+     * @return - tlačidlo ktoré spusti algoritmus na zmazanie uzlov 
+     */
     private JButton initBtnZmaz() {
         JButton zmaz = new JButton(Nadpisy.btnZmaz);
         zmaz.addActionListener(this);
@@ -218,6 +326,14 @@ public class BSTTlacidla extends JPanel implements ActionListener {
         return zmaz;
     }
 
+    /**
+     * Metoda vytvori tlačidlo na spušťanie algoritmu na zmazanie celej 
+     * štruktúry. Najprv vytvori nove tlačidlo ktrému nastaví listener v tejto 
+     * triede, potom rozkaz na akciu aby listener ktoré je to tlačidlo, 
+     * taktiež nastavime aj menimalnu velkosť a vratime tlačidlo.
+     * 
+     * @return - tlačidlo ktoré spusti algoritmus na zmazanie celej štruktúry 
+     */
     private JButton initClear() {
         JButton clear = new JButton(Nadpisy.btnClear);
         clear.addActionListener(this);
@@ -227,6 +343,15 @@ public class BSTTlacidla extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Metoda vytvori tlačidlo na spušťanie algoritmu na vytvorenie uzlov s 
+     * nahodnými hodnotami. Najprv vytvori nove tlačidlo ktrému nastaví listener
+     * v tejto triede, potom rozkaz na akciu aby listener ktoré je to tlačidlo, 
+     * taktiež nastavime aj menimalnu velkosť a vratime tlačidlo.
+     * 
+     * @return - tlačidlo ktoré spusti algoritmus na vytvorenie uzlov s nahodnou 
+     *              hodnotou
+     */
     private JButton initRandom() {
         JButton random = new JButton(Nadpisy.btnRandom);
         random.addActionListener(this);
@@ -234,5 +359,33 @@ public class BSTTlacidla extends JPanel implements ActionListener {
         random.setMinimumSize(preferedSize);
         return random;
 
+    }
+    /**
+     * Metoda vytvori tlačidlo na spušťanie algoritmu na vypis uzlov. Najprv
+     * vytvori nove tlačidlo ktrému nastaví listener v tejto triede, potom
+     * rozkaz na akciu aby listener ktoré je to tlačidlo, taktiež nastavime 
+     * aj menimalnu velkosť a vratime tlačidlo.
+     * 
+     * @return - tlačidlo ktoré spusti algoritmus na vypis údajovej štruktúry 
+     */
+    private JButton initVypis(){
+        JButton vypis=new JButton(Nadpisy.btnVypis);
+        vypis.addActionListener(this);
+        vypis.setActionCommand("vypis");
+        vypis.setPreferredSize(preferedSize);
+        return vypis;
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JSlider source = (JSlider)e.getSource();
+        if (!source.getValueIsAdjusting()) {
+            int fps = (int)source.getValue();
+            fps=400-fps;  
+            float a=((float)fps)/((float)200);
+            System.out.println("backend.BST.BSTTlacidla.stateChanged()"+a);
+            s.setDelay(a);
+        }
+    
     }
 }

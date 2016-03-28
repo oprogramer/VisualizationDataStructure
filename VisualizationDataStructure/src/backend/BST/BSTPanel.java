@@ -17,7 +17,10 @@ import javax.swing.border.TitledBorder;
 import visualizationdatastructure.Scena;
 
 /**
- *
+ * Trieda obsahuje konponenty ako su scena, tlačidla a komentáre. Prvo vytvorí
+ * údajovú štruktúru BST a potom inicializuje komponenty ktoré pridá na panel
+ * ktorý sa zobrazí na forme.
+ * 
  * @author ondrej
  */
 public class BSTPanel extends JPanel{
@@ -28,11 +31,22 @@ public class BSTPanel extends JPanel{
     public BST strom;
     Scena scena;
     
+    /**
+     * Konštruktor ktorý nastaví všetky potrebne parametre pre zobrazenie
+     * panelu ako su lokcia, velkosť a grafické zobrazenie. Potom vytvorí 
+     * údajovú štruktúru. Potom si vytvorí komponenty scena,komentare a 
+     * BSTTlačidla a pridá ich na panel.
+     * 
+     * @param pX - x-ova suradnica horného praveého rohu,odkiaľ sa ma zobraziť
+     * @param pY - y-ova suradnica horného praveého rohu,odkiaľ sa ma zobraziť
+     * @param pSirka - cele čislo ktoré predsavuje širku komponentu
+     * @param pVyska - cele čislo ktoré predsavuje vyšku komponentu 
+     */
     public BSTPanel(int pX,int pY,int pSirka,int pVyska) {
         super();
         sirka=pSirka;
         vyska=pVyska;
-        //setBounds(pX, pY, sirka, vyska);
+        
         setLocation(pX, pY);
         setPreferredSize(new Dimension(sirka, vyska));
         setLayout(new BorderLayout(5, 5));
@@ -53,14 +67,20 @@ public class BSTPanel extends JPanel{
         BSTTlacidla ovladanie=new BSTTlacidla(strom);
         add(ovladanie,BorderLayout.PAGE_END);
     }
-    
+    /**
+     * Metoda vytvori objekt typu Scena, aj naštartuje časovač ktory 
+     * zabezpeči vykreslovanie údajovej štruktúry. Nakoniec prida scenu na panel.
+     */
     private void initScenu(){
         scena=new Scena(strom, 2, 2, sirka , (int)(vyska*0.75));
-        scena.setBackground(Color.red);
+        
         scena.start();
         add(scena,BorderLayout.CENTER);
         
     }
+    /**
+     * Metoda ktora vytvori údajovú štruktúru BST
+     */
     private void initBST(){
         strom=new BST(this);
         
