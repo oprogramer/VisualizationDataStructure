@@ -1,9 +1,8 @@
 package backend.BST;
 
 import backend.FarbaUzlu;
-import backend.Struktury;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import visualizationdatastructure.Scena;
 
 /**
  * Trieda je algoritmus na zmazanie prvku z údajovej štruktúry binarny 
@@ -120,8 +119,9 @@ public class BSTDelete implements Runnable {
                     pause();
                     pUzol.getPravySyn().odznac();
                 }
-                
+                pUzol.setRodic(null);
                 pUzol.setSuradnice(pUzol.getX(), 1000);
+                
                 return pUzol.getPravySyn();
             } else if (pUzol.getPravySyn() == null) {
 
@@ -255,6 +255,6 @@ public class BSTDelete implements Runnable {
     }
     
     private void pause(){
-        Struktury.pause(1000);
+        Scena.pause(1000);
     }
 }

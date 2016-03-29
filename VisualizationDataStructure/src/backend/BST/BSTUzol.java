@@ -5,7 +5,7 @@
  */
 package backend.BST;
 
-import backend.Struktury;
+
 import backend.Uzol;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -13,8 +13,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import visualizationdatastructure.Scena;
 
 /**
  * Trieda predstavuje uzol pre údajovú štruktúru binárny vyhľadávaci strom. 
@@ -141,8 +140,8 @@ public class BSTUzol extends Uzol {
         String s = getStringHod();
         FontMetrics fm = g.getFontMetrics();
         g.drawString(s, x - fm.stringWidth(s) / 2, (y - fm.getHeight() / 2) + fm.getAscent());
-        g.setColor(Color.BLACK);
-        g.drawString(String.valueOf(getPocetDeti()), x, y-velkost/2);
+        
+        
     }
     //**********koniec vykreslenia*****
 
@@ -244,7 +243,7 @@ public class BSTUzol extends Uzol {
                 y += (getToy() - getY()) / kroky;
             }
             kroky--;
-            Struktury.pause(100);
+            Scena.pause(100);
         }
 
     }

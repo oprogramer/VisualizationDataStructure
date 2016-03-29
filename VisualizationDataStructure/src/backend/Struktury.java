@@ -5,10 +5,9 @@
  */
 package backend;
 
-import backend.BST.BST;
+
+import backend.BST.BSTUzol;
 import java.awt.Graphics;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -19,7 +18,8 @@ import java.util.logging.Logger;
 public abstract class Struktury {
     
     protected String name;
-    protected  static float delay;
+    
+    
     /**
      * Konštruktor na vytvorenie štruktúry. Ako parameter dostava reťazec, ktorý
      * predstavuje nazov štruktúry.
@@ -29,6 +29,8 @@ public abstract class Struktury {
     public Struktury(String pMeno){
         
         name=pMeno;
+        
+        
     }
     
     /**
@@ -40,6 +42,7 @@ public abstract class Struktury {
         return name;
     }
 
+    
     /**
      * Abstraktná metoda ktorá bude implementovať kod na vloženie uzlu do štruktúry.
      * 
@@ -83,24 +86,6 @@ public abstract class Struktury {
      */
     public abstract void vypis(String pPoradie);
     
-    public float getDelay() {
-        return delay;
-    }
-
-    public void setDelay(float delay) {
-        this.delay = delay;
-    }
-
-    public static void pause(int pause){
-        try {
-            float a=pause*delay;
-            System.out.println(""+a);
-            int b=(int) a;
-            System.out.println(""+ b);
-            Thread.sleep(b);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BST.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 }
 

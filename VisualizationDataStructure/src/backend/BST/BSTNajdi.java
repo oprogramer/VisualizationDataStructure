@@ -6,8 +6,7 @@
 package backend.BST;
 
 import backend.FarbaUzlu;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import visualizationdatastructure.Scena;
 
 
 /**
@@ -88,6 +87,6 @@ public class BSTNajdi implements Runnable{
     }
     
      private void pause() {
-        DS.pause(1000);
+        Scena.pause(1000);
     }
 }

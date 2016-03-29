@@ -8,6 +8,7 @@ package backend.BST;
 import backend.FarbaUzlu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import visualizationdatastructure.Scena;
 
 /**
  * Trieda je algoritmus na vloženie nového prvku do údajovej štruktúry binarny 
@@ -37,6 +38,11 @@ public class BSTVloz implements Runnable {
         u = pU;
 
         start();
+        try {
+            vlakno.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BSTVloz.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * Metoda naštartue vlakno. Ked neexistuje vlakno tak vytvori nove a 
@@ -66,6 +72,7 @@ public class BSTVloz implements Runnable {
             T.setKoren(u);
             pause();
             uspesne = true;
+            
         } else {
             uspesne = insert(T.getKoren());
         }
@@ -73,7 +80,7 @@ public class BSTVloz implements Runnable {
             u.setFarbu(FarbaUzlu.normalny);
             T.prepocitajVyskuStromu();
             T.prepocitanieSuradnic();
-
+            
         }
         
     }
@@ -99,7 +106,7 @@ public class BSTVloz implements Runnable {
      * @param pU - uzol ktorý sa ma kontrolovať t.j porovnávať s novím uzlo
      * @return - pravdivostna hodnota či je vloženie uspešné
      */
-    private boolean insert(BSTUzol pU) {
+    private synchronized boolean insert(BSTUzol pU) {
 
         //Ked vlozime hodnotu ktora uz je vlozena v strome
         //Zahodime ho lebo v strome sa nemozu nachadzat rovnake hodnoty
@@ -108,6 +115,7 @@ public class BSTVloz implements Runnable {
             u.setFarbu(FarbaUzlu.existujuci);
             pause();
             T.zmazNovy();
+            
             return false;
         } else {
             u.setSuradnice(pU.getX(), pU.getY()-35);
@@ -135,12 +143,13 @@ public class BSTVloz implements Runnable {
                     insert(pU.getPravySyn());
                 }
             }
+            
             return true;
         }
-
+        
     }
 
     private void pause() {
-        T.pause(1000);
+        Scena.pause(1000);
     }
 }

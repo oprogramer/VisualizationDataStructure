@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class BST extends Struktury {
 
-    private BSTUzol koren, novy;
+    private BSTUzol koren,novy;
     BSTPanel panel;
     private Graphics g;
     
