@@ -6,6 +6,8 @@
 package backend.BST;
 
 import backend.FarbaUzlu;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import visualizationdatastructure.Scena;
 
 
@@ -36,7 +38,11 @@ public class BSTNajdi implements Runnable{
         this.hod=pHod;
         
         start();
-        
+        try {
+            vlakno.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BSTNajdi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * Metoda naštartue vlakno. Ked neexistuje vlakno tak vytvori nove a 
@@ -51,15 +57,20 @@ public class BSTNajdi implements Runnable{
 
     @Override
     public void run() {
+        DS.panel.kom.zmazKomentare();
+        pridajKomentar("Hľadanie uzlu "+hod);
+        pridajKomentar("Začneme hľadať v koreni stromu.");
         Najdi(DS.getKoren(),hod);
+        pridajKomentar("Koniec hľadania.");
     }
     
     private void Najdi(BSTUzol pUzol,int pHod){
         pUzol.oznac();
+        pridajKomentar("Kontrolujeme uzol "+pUzol.getHod());
         pause();
         
         if(pUzol.getHod()==pHod){
-            
+            pridajKomentar("Najdený.");
             pUzol.setFarbu(FarbaUzlu.najdeny);
             pause();
             pUzol.setFarbu(FarbaUzlu.normalny);
@@ -69,17 +80,20 @@ public class BSTNajdi implements Runnable{
         if(pHod<pUzol.getHod()){
             
             if(pUzol.getLavySyn()==null){
-                
+                pridajKomentar("Uzol s hodnotou "+ hod+" neexistuje v strome.");
                 pUzol.odznac();
             }else{
+                pridajKomentar("Kedže je "+hod+" menšia ako "+pUzol.getHod()+" tak budeme hľadať v ľavom podstrome.");
                 pUzol.odznac();
                 Najdi(pUzol.getLavySyn(), pHod);
             }
         }
         if(pHod>pUzol.getHod()){
             if(pUzol.getPravySyn()==null){
+                pridajKomentar("Uzol s hodnotou "+ hod+" neexistuje v strome.");
                 pUzol.odznac();
             }else{
+                pridajKomentar("Kedže je "+hod+" večšia ako "+pUzol.getHod()+" tak budeme hľadať v pravom podstrome.");
                 pUzol.odznac();
                 Najdi(pUzol.getPravySyn(), pHod);
             }
@@ -87,6 +101,9 @@ public class BSTNajdi implements Runnable{
     }
     
      private void pause() {
-        Scena.pause(1000);
+        Scena.pause(1500);
     }
+     private void pridajKomentar(String pKomentar){
+         DS.panel.kom.pridajKomentar(pKomentar);
+     }
 }

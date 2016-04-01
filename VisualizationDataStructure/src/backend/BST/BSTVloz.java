@@ -21,7 +21,7 @@ import visualizationdatastructure.Scena;
 public class BSTVloz implements Runnable {
 
     private Thread vlakno;
-    private final BST T;
+    private final BST DS;
     private final BSTUzol u;
     private boolean uspesne;
 
@@ -34,7 +34,7 @@ public class BSTVloz implements Runnable {
      * @param pU - uzol ktorý sa vklada
      */
     public BSTVloz(BST pT, BSTUzol pU) {
-        T = pT;
+        DS = pT;
         u = pU;
 
         start();
@@ -65,24 +65,31 @@ public class BSTVloz implements Runnable {
      */
     @Override
     public void run() {
-
-        if (T.getKoren() == null) {
-
-            u.setSuradnice(T.panel.scena.getWidth() / 2, 50);
-            T.setKoren(u);
+        //Prvo zmazeme komentare a pridame co robim
+        DS.panel.kom.zmazKomentare();
+        pridajKomentar("Vkladanie uzola s hodnotou "+u.getHod());
+        
+        if (DS.getKoren() == null) {
+            
+            pridajKomentar("Dátova štrukturá neobsahuje uzly takže nový uzol nastavieme ako koreň stromu.");
+            
+            u.setSuradnice(DS.panel.scena.getWidth() / 2, 50);
+            DS.setKoren(u);
             pause();
             uspesne = true;
             
         } else {
-            uspesne = insert(T.getKoren());
+            pridajKomentar("Začneme v koreni stromu.");
+            uspesne = insert(DS.getKoren());
         }
         if (uspesne) {
             u.setFarbu(FarbaUzlu.normalny);
-            T.prepocitajVyskuStromu();
-            T.prepocitanieSuradnic();
+            DS.prepocitajVyskuStromu();
+            DS.prepocitanieSuradnic();
             
         }
         
+        pridajKomentar("Koniec vkladania.");
     }
 
     /**
@@ -110,19 +117,26 @@ public class BSTVloz implements Runnable {
 
         //Ked vlozime hodnotu ktora uz je vlozena v strome
         //Zahodime ho lebo v strome sa nemozu nachadzat rovnake hodnoty
+        u.setSuradnice(pU.getX(), pU.getY()-35);
+        pridajKomentar("Nový uzol porovnáme s uzlom "+pU.getHod()+".");
+        pause();
         if (pU.getHod() == u.getHod()) {
-
+            pridajKomentar("Uzol už existuje");
             u.setFarbu(FarbaUzlu.existujuci);
             pause();
-            T.zmazNovy();
+            DS.zmazNovy();
             
             return false;
         } else {
-            u.setSuradnice(pU.getX(), pU.getY()-35);
-            pause();
+            
+            
             if (u.getHod() < pU.getHod()) {
-                
+                pridajKomentar("Pretože je "+u.getHod()+" menšie ako "+pU.getHod()+" budeme nový uzol vkladať do lavého podstromu.");
                 if (pU.getLavySyn() == null) {
+                    
+                    pridajKomentar("Pretože uzol "+pU.getHod()+" neobsahuje laveho potomka, "
+                            + "nový uzol nastavíme ako jeho lavý potomok.");
+                    
                     u.setSuradnice(pU.getX() - u.getVelkost(), pU.getY() + u.getVelkost());
                     pU.setLavySyn(u);
                     u.setRodic(pU);
@@ -133,7 +147,12 @@ public class BSTVloz implements Runnable {
                 }
             }
             if (u.getHod() > pU.getHod()) {
+                pridajKomentar("Pretože je "+u.getHod()+" večšie ako "+pU.getHod()+" budeme nový uzol vkladať do pravého podstromu.");
                 if (pU.getPravySyn() == null) {
+                    
+                     pridajKomentar("Pretože uzol "+pU.getHod()+" neobsahuje pravého potomka, "
+                            + "nový uzol nastavíme ako jeho pravý potomok.");
+                    
                     u.setSuradnice(pU.getX() + u.getVelkost(), pU.getY() + u.getVelkost());
                     pU.setPravySyn(u);
                     u.setRodic(pU);
@@ -151,5 +170,9 @@ public class BSTVloz implements Runnable {
 
     private void pause() {
         Scena.pause(1000);
+    }
+    
+    private void pridajKomentar(String pKomentar){
+        DS.panel.kom.pridajKomentar(pKomentar);
     }
 }

@@ -6,6 +6,7 @@
 package backend.BST;
 
 
+import backend.Komentare;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import visualizationdatastructure.Scena;
 
@@ -30,7 +32,7 @@ public class BSTPanel extends JPanel{
     int sirka,vyska;
     public BST strom;
     Scena scena;
-    
+    Komentare kom;
     /**
      * Konštruktor ktorý nastaví všetky potrebne parametre pre zobrazenie
      * panelu ako su lokcia, velkosť a grafické zobrazenie. Potom vytvorí 
@@ -63,7 +65,10 @@ public class BSTPanel extends JPanel{
         
         JButton b=new JButton("aaaaaaaaaaa");
         b.setPreferredSize(new Dimension((int)(sirka*0.33), vyska));
-        add(b,BorderLayout.LINE_END);
+        
+        JScrollPane scrollpane=initKomentare();
+        add(scrollpane,BorderLayout.LINE_END);
+        
         BSTTlacidla ovladanie=new BSTTlacidla(strom);
         add(ovladanie,BorderLayout.PAGE_END);
     }
@@ -86,5 +91,33 @@ public class BSTPanel extends JPanel{
         
         
         
+    }
+    private JScrollPane initKomentare(){
+        JScrollPane scrollPane=new JScrollPane(){
+           
+
+//            @Override
+//            public Dimension getMaximumSize() {
+//                return new Dimension(400, 680);
+//            }
+
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(400, 710);
+            }
+
+            @Override
+            public Dimension getMinimumSize() {
+                return new Dimension(200, 500);
+            }
+        };
+        
+        
+        kom=new Komentare();
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setViewportView(kom);
+        scrollPane.setBorder(BorderFactory.createTitledBorder(""));
+        return scrollPane;
     }
 }

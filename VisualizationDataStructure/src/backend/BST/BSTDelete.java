@@ -1,6 +1,8 @@
 package backend.BST;
 
 import backend.FarbaUzlu;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import visualizationdatastructure.Scena;
 
@@ -39,6 +41,11 @@ public class BSTDelete implements Runnable {
         this.DS = pDS;
         this.hod = pHod;
         start();
+        try {
+            vlakno.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BSTDelete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -54,11 +61,14 @@ public class BSTDelete implements Runnable {
     
     @Override
     public void run() {
+        DS.panel.kom.zmazKomentare();
+        pridajKomentar("Mazanie uzla "+hod);
+        pridajKomentar("Začneme v koreni stromu.");
         DS.setKoren(Zmaz(DS.getKoren(), hod));
 
         DS.prepocitajVyskuStromu();
         DS.prepocitanieSuradnic();
-        
+        pridajKomentar("Koniec mazania");
     }
     /**
      * Metoda ktorá implementuje algoritmus na zmazanie uzlu z údajovej štruktúry 
@@ -92,39 +102,50 @@ public class BSTDelete implements Runnable {
     private BSTUzol Zmaz(BSTUzol pUzol, int pHod) {
 
         if (DS.getKoren() == null) {
+            pridajKomentar("Strom je prazny, nie je čo mazať.");
             return DS.getKoren();
         }
-
+        
+        
         pUzol.oznac();
         pause();
         
         if (pHod < pUzol.getHod()) {
             pUzol.odznac();
+            pridajKomentar("Kedže je "+hod+" menšia ako "+pUzol.getHod()+", tak budeme mazať uzol v ľavom podstrome.");
             pUzol.setLavySyn(Zmaz(pUzol.getLavySyn(), pHod));
 
         } else if (pHod > pUzol.getHod()) {
             pUzol.odznac();
+            pridajKomentar("Kedže je "+hod+" večšia ako "+pUzol.getHod()+", tak budeme mazať uzol v pravom podstrome. ");
             pUzol.setPravySyn(Zmaz(pUzol.getPravySyn(), pHod));
         } else if (pHod == pUzol.getHod()) {
-
+            
             pUzol.setFarbu(FarbaUzlu.zmazani);
             pause();
             if (pUzol.getLavySyn() == null) {
-
+               
                 if (pUzol.getPravySyn() != null) {
-
+                    pridajKomentar("Najdený. \nPripad II: Uzol "+pUzol.getHod()+" nemá ľaveého"
+                        + "potomka. Uzol "+pUzol.getHod()+" zmažeme tak, že jeho pravého potomka "
+                            + "pripojíme na jeho rodiča");
                     pUzol.getPravySyn().setRodic(pUzol.getRodic());
                     pUzol.getPravySyn().oznac();
                     pUzol.setRodic(null);
                     pause();
                     pUzol.getPravySyn().odznac();
+                }else{
+                     pridajKomentar("Najdený. \nPripad I: Uzol "+pUzol.getHod()+" nemá ani jedného "
+                        + "potomka. Može sa jednoducho zmazať.");
                 }
                 pUzol.setRodic(null);
                 pUzol.setSuradnice(pUzol.getX(), 1000);
                 
                 return pUzol.getPravySyn();
             } else if (pUzol.getPravySyn() == null) {
-
+                pridajKomentar("Najdený. \nPripad II: Uzol "+pUzol.getHod()+" nemá pravého"
+                        + "potomka. Uzol "+pUzol.getHod()+" zmažeme tak, že jeho ľavého potomka "
+                            + "pripojíme na jeho rodiča");
                 pUzol.getLavySyn().setRodic(pUzol.getRodic());
                 pUzol.getLavySyn().oznac();
                 pUzol.setRodic(null);
@@ -135,8 +156,17 @@ public class BSTDelete implements Runnable {
                 pUzol.setSuradnice(pUzol.getX(), 1000);
                 return pUzol.getLavySyn();
             } else {
+                
+                pridajKomentar("Najdený. \nPripad III: Uzol "+pUzol.getHod()+" ná oboch"
+                        + "potomkov. Uzol "+pUzol.getHod()+" zmažeme tak, že najdeme najmenší "
+                            + "prvok v jeho pravom podstrome, s ktorým ho vymeníme. Ten prvok"
+                        + "bude mať najviac jedného syna a bude sa dať ľahko zmazať.");
+                
+                
                 //Zistime uzol v pravom podstorme s najmenšou hodnotou
                 uzol = najmesiVpravomPodstrome(pUzol.getPravySyn());
+                pridajKomentar("Najmenší prvok v pravom podstrome je "+uzol.getHod()+"."
+                        + "Odpojíme prvok "+uzol.getHod() +" a "+pUzol.getHod()+" a vymeníme ich.");
                 //Uložime hodnoty uzlu ktorý chceme zmazat
                 //aby sme ich potom vedeli nastaviť uzlu z pravého podstomu
                 pUzolx = pUzol.getX();
@@ -223,6 +253,8 @@ public class BSTDelete implements Runnable {
                 
                 //Nastavime praveho syna na uzol ktorý vrati metoda zmaz pre 
                 //preveho syna uzla z praveho podstromu
+                pridajKomentar("Pokračujeme tak, že zase najdeme uzol ktorý chceme zmazať. Teraz by "
+                        + "mal obsahovať najviac jedneho syna tak ho vieme zmazať.");
                 uzol.setPravySyn(Zmaz(uzol.getPravySyn(), pUzol.getHod()));
                 uzol.odznac();
                 uzol.setFarbu(FarbaUzlu.normalny);
@@ -242,12 +274,14 @@ public class BSTDelete implements Runnable {
      * @return - uzol sa najmenšou hodnotou
      */
     private BSTUzol najmesiVpravomPodstrome(BSTUzol pUzol) {
+        pridajKomentar("Začneme v koreni pravého postromu.");
         while (pUzol.getLavySyn() != null) {
+            
             pUzol.oznac();
             pause();
             pUzol.odznac();
             pUzol = pUzol.getLavySyn();
-            
+            pridajKomentar("Získame laveho potomka.");
         }
         pUzol.setFarbu(FarbaUzlu.najdeny);
         
@@ -255,6 +289,10 @@ public class BSTDelete implements Runnable {
     }
     
     private void pause(){
-        Scena.pause(1000);
+        Scena.pause(1500);
+    }
+    
+    private void pridajKomentar(String pKomentar){
+        DS.panel.kom.pridajKomentar(pKomentar);
     }
 }

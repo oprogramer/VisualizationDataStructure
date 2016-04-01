@@ -201,32 +201,46 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                 break;
             }
             case "najdi": {
-                if (txt.equals("")) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        zpristupni(false);
+                        if (txt.equals("")) {
 
-                } else {
-                    try {
-                        int hod = Integer.parseInt(txt);
-                        s.najdi(hod);
-                        poleVkladanie.setText("");
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Please give number");
+                        } else {
+                            try {
+                                int hod = Integer.parseInt(txt);
+                                s.najdi(hod);
+                                poleVkladanie.setText("");
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Please give number");
+                            }
+                        }
+                        zpristupni(true);
                     }
-                }
+                }).start();
 
                 break;
             }
             case "zmaz": {
-                if (txt.equals("")) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        zpristupni(false);
+                        if (txt.equals("")) {
 
-                } else {
-                    try {
-                        int hod = Integer.parseInt(txt);
-                        s.zmaz(hod);
-                        poleVkladanie.setText("");
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Please give number");
+                        } else {
+                            try {
+                                int hod = Integer.parseInt(txt);
+                                s.zmaz(hod);
+                                poleVkladanie.setText("");
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Please give number");
+                            }
+                        }
+                        zpristupni(true);
                     }
-                }
+                }).start();
 
                 break;
             }

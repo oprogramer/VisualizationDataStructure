@@ -2,8 +2,7 @@ package backend.BST;
 
 import backend.Struktury;
 import java.awt.Graphics;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  * Trieda ktorá predstavuje údajovú štruktúru binarného vyhladávacieho stromu.
@@ -19,7 +18,7 @@ import java.util.logging.Logger;
 public class BST extends Struktury {
 
     private BSTUzol koren,novy;
-    BSTPanel panel;
+    public BSTPanel panel;
     private Graphics g;
     
     /**
