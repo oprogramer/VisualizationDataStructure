@@ -17,6 +17,7 @@ public class Nadpisy {
     public static String menuItemNovy="Nový";
     public static String menuItemOtvorit="Otvoriť";
     public static String menuItemUloziť="Uložiť";
+    public static String menuItemHash="HashTable";
     public static String koniec="Zavrieť";
     public static String menuItemStromy="Stromy";
     public static String ovladanie="Ovládanie";
@@ -29,5 +30,5 @@ public class Nadpisy {
     public static String rbPreOrder="PreOrder";
     public static String rbInOrder="InOrder";
     public static String rbPostOrder="PostOrder";
-    
+        
 }

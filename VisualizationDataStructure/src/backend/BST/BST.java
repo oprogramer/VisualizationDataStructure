@@ -1,8 +1,10 @@
 package backend.BST;
 
+import backend.FarbaUzlu;
 import backend.Struktury;
 import java.awt.Graphics;
-
+import java.util.ArrayList;
+import visualizationdatastructure.Scena;
 
 /**
  * Trieda ktorá predstavuje údajovú štruktúru binarného vyhladávacieho stromu.
@@ -17,10 +19,10 @@ import java.awt.Graphics;
  */
 public class BST extends Struktury {
 
-    private BSTUzol koren,novy;
+    private BSTUzol koren, novy;
     public BSTPanel panel;
     private Graphics g;
-    
+
     /**
      * Konštruktor pre vytvorenie údajovej štruktúry binarny vyhľadávaci strom.
      * Najprv zavola konštruktor triede Struktury kde nastavi meno na BST. Potom
@@ -76,13 +78,14 @@ public class BST extends Struktury {
     }
 
     /**
-     * Metoda ktorá je volaná z metode Nakresli štruktúru. Jej úlohov je 
-     * v poradi postOrder pre každý uzol zavolať jeho metodu 'nakresli' 
-     * na vykreslenie uzla.
-     * 
-     * @param pUzol - uzol z ktorého začneme vykresľovať, zvičajne koren stromu 
+     * Metoda ktorá je volaná z metode Nakresli štruktúru. Jej úlohov je v
+     * poradi postOrder pre každý uzol zavolať jeho metodu 'nakresli' na
+     * vykreslenie uzla.
+     *
+     * @param pUzol - uzol z ktorého začneme vykresľovať, zvičajne koren stromu
      */
     private void postorderV(BSTUzol pUzol) {
+
         if (pUzol.getLavySyn() != null) {
             postorderV(pUzol.getLavySyn());
         }
@@ -90,12 +93,13 @@ public class BST extends Struktury {
             postorderV(pUzol.getPravySyn());
         }
         pUzol.nakresli(g);
+
     }
+
     //*********koniec vykreslenia********
     /**
-     * Pri zmene štruktury ako je vloženie uzla alebo zmazanie 
-     * tak sa prepocita aj jeho vyska tak že sa zavolá sukromna metoda
-     * v tejto triede
+     * Pri zmene štruktury ako je vloženie uzla alebo zmazanie tak sa prepocita
+     * aj jeho vyska tak že sa zavolá sukromna metoda v tejto triede
      */
     public void prepocitajVyskuStromu() {
         if (koren != null) {
@@ -103,10 +107,9 @@ public class BST extends Struktury {
         }
     }
 
-    
-    /** 
-     * V poradi postorder sa prejde cez strom
-     * a zavola sa pre kazdy uzol metoda na prepocitanie vysky uzla a jeho podstromov
+    /**
+     * V poradi postorder sa prejde cez strom a zavola sa pre kazdy uzol metoda
+     * na prepocitanie vysky uzla a jeho podstromov
      */
     private void prepocitajVyskuStromu(BSTUzol pUzol) {
         if (pUzol.getLavySyn() != null) {
@@ -119,12 +122,11 @@ public class BST extends Struktury {
     }
 
     // ***** koniec prepoctu vysky ******
-    
     /**
-     * Zavolame pre koren metodu na prepocitanie suradnic
-     * Medota toho uzlu prejde celim stromom a nastavi suradnice kazdeho uzlu
-     * koren bude mat nastavenu suradnicu x na stred scene a y na 50px
-     * a potom pre kazdy uzol nastavi take suradnice ktore prepocita na zaklade jeho podstromov
+     * Zavolame pre koren metodu na prepocitanie suradnic Medota toho uzlu
+     * prejde celim stromom a nastavi suradnice kazdeho uzlu koren bude mat
+     * nastavenu suradnicu x na stred scene a y na 50px a potom pre kazdy uzol
+     * nastavi take suradnice ktore prepocita na zaklade jeho podstromov
      */
     public void prepocitanieSuradnic() {
         if (koren != null) {
@@ -133,12 +135,12 @@ public class BST extends Struktury {
     }
 
     /**
-     * Metoda vytvorý inštanciu triedy BSTUzol na ktorú bude ukazovať premenná 'novy'
-     * a bude sa vykresľovať osobitne od stromu.
-     * Potom vytvorý inštanciu triedy BSTVloz ktorá predstavuje algoritmus na
-     * vloženie uzla do štruktúry. Ako parametre posiela údajový štruktúru a 
-     * uzol ktorý sa vkladá t.j. na ktorý ukazuje premenná 'novy'
-     * 
+     * Metoda vytvorý inštanciu triedy BSTUzol na ktorú bude ukazovať premenná
+     * 'novy' a bude sa vykresľovať osobitne od stromu. Potom vytvorý inštanciu
+     * triedy BSTVloz ktorá predstavuje algoritmus na vloženie uzla do
+     * štruktúry. Ako parametre posiela údajový štruktúru a uzol ktorý sa vkladá
+     * t.j. na ktorý ukazuje premenná 'novy'
+     *
      * @param pHod - hodnota ktorú bude obsahovať nový uzol
      */
     @Override
@@ -149,10 +151,10 @@ public class BST extends Struktury {
     }
 
     /**
-     * Metoda vytvorý inštanciu triedy BSTNajdi, ktorá predstavuje algoritmus 
-     * na hľadanie v strome. Ako parametre posiela údajovú štruktúru v ktorej 
-     * ma hľadat a hodnotu ktorú ma hľadat.
-     * 
+     * Metoda vytvorý inštanciu triedy BSTNajdi, ktorá predstavuje algoritmus na
+     * hľadanie v strome. Ako parametre posiela údajovú štruktúru v ktorej ma
+     * hľadat a hodnotu ktorú ma hľadat.
+     *
      * @param pHod - hladaná hodnota
      */
     @Override
@@ -162,9 +164,9 @@ public class BST extends Struktury {
 
     /**
      * Metoda vytvorý inštanciu triedy BSTDelete, ktorá predstavuje algoritmus
-     * na zmazanie uzla v strome. Ako parametre posiela údajovú štruktúru z 
+     * na zmazanie uzla v strome. Ako parametre posiela údajovú štruktúru z
      * ktorej sa ma zmazať uzol, a hodnota uzlu ktorý sa ma zmazať
-     * 
+     *
      * @param pHod - hodnota uzlu ktorý sa ma zmazať
      */
     @Override
@@ -182,23 +184,23 @@ public class BST extends Struktury {
     }
 
     /**
-     * Metoda ktorá zavolá metodu na vypis hodnoty všetkých uzlov v poradí 
+     * Metoda ktorá zavolá metodu na vypis hodnoty všetkých uzlov v poradí
      * určenom parametrom.
-     * 
-     * @param pPoradie - textový retazec ktorý urcuje poradie vypisu, môže byť 
-     *                   preorder, inorder, postorder
+     *
+     * @param pPoradie - textový retazec ktorý urcuje poradie vypisu, môže byť
+     * preorder, inorder, postorder
      */
     @Override
     public void vypis(String pPoradie) {
-        switch (pPoradie){
-            case "inorder":{
+        switch (pPoradie) {
+            case "inorder": {
                 inorderRec(koren);
                 break;
             }
-            case "preorder":{
+            case "preorder": {
                 break;
             }
-            case "postorder":{
+            case "postorder": {
                 break;
             }
         }
@@ -206,11 +208,12 @@ public class BST extends Struktury {
 
     /**
      * Rekurzivna metoda ktorá vypiše hodnoty všetkých uzlov v poradi inorder.
-     * Najprv pojde rekurzívne do celkom najlavejšiho podstromu tj uzla v strome,
-     * potom vypiše uzol a potom pojde do praveho podstromu, ked to bude iba uzol,
-     * tak ho vypiše, ked nie tak pojde do je vypisať jeho podstromy. Nasledne 
-     * sa vracame ku korenu podstromu a ho vypise a zopakujeme pre pravy podstrom
-     * 
+     * Najprv pojde rekurzívne do celkom najlavejšiho podstromu tj uzla v
+     * strome, potom vypiše uzol a potom pojde do praveho podstromu, ked to bude
+     * iba uzol, tak ho vypiše, ked nie tak pojde do je vypisať jeho podstromy.
+     * Nasledne sa vracame ku korenu podstromu a ho vypise a zopakujeme pre
+     * pravy podstrom
+     *
      * @param root - uzol z ktorého začne vypisovať
      */
     public void inorderRec(BSTUzol root) {
@@ -225,10 +228,10 @@ public class BST extends Struktury {
      * Rekurzívna metoda ktorá vypiše hodnoty všetkých uzlov v poradí preorder.
      * Najprv vypise koren stromu alebo podstromu a potom skuša lavý podstrom,
      * ked už lavy neexistuje tak skuša pravý.
-     * 
+     *
      * @param root - uzol z ktorého začne vypisovať
      */
-    public void preorder(BSTUzol root){
+    public void preorder(BSTUzol root) {
         if (root != null) {
             System.err.print(root.getHod() + " ");
             inorderRec(root.getLavySyn());
@@ -238,15 +241,16 @@ public class BST extends Struktury {
 
     /**
      * Rekurzívna metoda ktorá vypiše hodnoty všetkých uzlov v poradí postorder.
-     * Najprv skuša lavý podstrom a tak až pokim existuje lavy uzol, ked neexistuje 
-     * lavy uzol tak skuša pravy podstrom až pokim existuje pravy uzol, ked už 
-     * nebude ani pravy tak sa vracia späť a vypise koren podstromu.
-     * 
+     * Najprv skuša lavý podstrom a tak až pokim existuje lavy uzol, ked
+     * neexistuje lavy uzol tak skuša pravy podstrom až pokim existuje pravy
+     * uzol, ked už nebude ani pravy tak sa vracia späť a vypise koren
+     * podstromu.
+     *
      * @param root - uzol z ktorého začne vypisovať
      */
-    public void postorder(BSTUzol root){
+    public void postorder(BSTUzol root) {
         if (root != null) {
-            
+
             inorderRec(root.getLavySyn());
             inorderRec(root.getPravySyn());
             System.err.print(root.getHod() + " ");
@@ -261,4 +265,87 @@ public class BST extends Struktury {
         novy = null;
     }
 
+    //Metody preorder, inorder a postorder na vypis prvkov
+    public ArrayList preOrder(boolean pvypis) {
+        ArrayList<BSTUzol> preorder = new ArrayList<BSTUzol>();
+        if (pvypis) {
+            panel.kom.zmazKomentare();
+            panel.kom.pridajKomentar("Vypis prvkov v poradi preOrder");
+
+        }
+        if(koren!=null)
+        ppreOrder(preorder, koren, pvypis);
+        return preorder;
+    }
+
+    private void ppreOrder(ArrayList<BSTUzol> pPreOrder, BSTUzol pUzol, boolean pvypis) {
+        pPreOrder.add(pUzol);
+        if (pvypis) {
+            pUzol.setFarbu(FarbaUzlu.najdeny);
+
+            panel.kom.pridajKomentar("" + pUzol.getStringHod());
+            Scena.pause(1000);
+
+        }
+
+        if (pUzol.getLavySyn() != null) {
+            ppreOrder(pPreOrder, pUzol.getLavySyn(), pvypis);
+        }
+        if (pUzol.getPravySyn() != null) {
+            ppreOrder(pPreOrder, pUzol.getPravySyn(), pvypis);
+        }
+        pUzol.setFarbu(FarbaUzlu.normalny);
+    }
+
+    public ArrayList inOrder() {
+        ArrayList<BSTUzol> inorder = new ArrayList<BSTUzol>();
+        panel.kom.zmazKomentare();
+        panel.kom.pridajKomentar("Vypis prvkov v poradi inOrder");
+        if(koren!=null)
+        pinOrder(inorder, koren);
+        return inorder;
+    }
+
+    private void pinOrder(ArrayList<BSTUzol> pInOrder, BSTUzol pUzol) {
+
+        if (pUzol.getLavySyn() != null) {
+            pinOrder(pInOrder, pUzol.getLavySyn());
+        }
+        pInOrder.add(pUzol);
+        pUzol.setFarbu(FarbaUzlu.najdeny);
+
+        panel.kom.pridajKomentar("" + pUzol.getStringHod());
+        Scena.pause(1000);
+
+        if (pUzol.getPravySyn() != null) {
+            pinOrder(pInOrder, pUzol.getPravySyn());
+        }
+        pUzol.setFarbu(FarbaUzlu.normalny);
+    }
+
+    public ArrayList postOrder() {
+        ArrayList<BSTUzol> postorder = new ArrayList<BSTUzol>();
+        panel.kom.zmazKomentare();
+        panel.kom.pridajKomentar("Vypis prvkov v poradi postOrder");
+        if(koren!=null)
+        ppostOrder(postorder, koren);
+        return postorder;
+    }
+
+    private void ppostOrder(ArrayList<BSTUzol> ppostOrder, BSTUzol pUzol) {
+
+        if (pUzol.getLavySyn() != null) {
+            ppostOrder(ppostOrder, pUzol.getLavySyn());
+        }
+
+        if (pUzol.getPravySyn() != null) {
+            ppostOrder(ppostOrder, pUzol.getPravySyn());
+        }
+        ppostOrder.add(pUzol);
+        pUzol.setFarbu(FarbaUzlu.najdeny);
+
+        panel.kom.pridajKomentar("" + pUzol.getStringHod());
+        Scena.pause(1000);
+        pUzol.setFarbu(FarbaUzlu.normalny);
+    }
 }

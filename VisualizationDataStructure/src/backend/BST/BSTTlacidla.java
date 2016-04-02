@@ -12,6 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -35,16 +36,16 @@ import visualizationdatastructure.Scena;
  */
 public class BSTTlacidla extends JPanel implements ActionListener, ChangeListener {
 
-    TitledBorder border;
-    Struktury s;
-    JTextField poleVkladanie;
-    Dimension preferedSize;
+    private TitledBorder border;
+    private BST s;
+    private JTextField poleVkladanie;
+    private Dimension preferedSize;
 
     //Tlacidla na ovladanie
-    JButton vloz, najdi, zmaz, random, clear, vypis;
-    JRadioButton rbPreOrder;
-    JRadioButton rbInOrder;
-    JRadioButton rbPostOrder;
+    private JButton vloz, najdi, zmaz, random, clear, vypis;
+    private JRadioButton rbPreOrder;
+    private JRadioButton rbInOrder;
+    private JRadioButton rbPostOrder;
 
     /**
      * Konštruktor ktorý vytvorí objekt tejto triedy. Najprv nastavi graficke
@@ -52,7 +53,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
      *
      * @param pS - údajová štruktúra ktorú maju prvky ovladat.
      */
-    public BSTTlacidla(Struktury pS) {
+    public BSTTlacidla(BST pS) {
         setLayout(new BorderLayout(5, 5));
         border = BorderFactory.createTitledBorder("");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -125,7 +126,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
         rbPreOrder = new JRadioButton(Nadpisy.rbPreOrder);
         rbInOrder = new JRadioButton(Nadpisy.rbInOrder);
         rbPostOrder = new JRadioButton(Nadpisy.rbPostOrder);
-
+        rbPreOrder.setSelected(true);
         ButtonGroup group = new ButtonGroup();
         group.add(rbPreOrder);
         group.add(rbInOrder);
@@ -287,16 +288,34 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                 break;
             }
             case "vypis": {
-                if (rbInOrder.isSelected()) {
-                    System.err.println("vzpis inorder");
-                }
-                if (rbPostOrder.isSelected()) {
-                    System.err.println("Vypis postorder");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        StringBuilder br = new StringBuilder();
+                        if (rbInOrder.isSelected()) {
+                            ArrayList<BSTUzol> zoznam = s.inOrder();
+                            for (BSTUzol uzol : zoznam) {
+                                br.append(uzol.getHod() + " ");
+                            }
 
-                }
-                if (rbPreOrder.isSelected()) {
-                    System.err.println("Vypis preorder");
-                }
+                        }
+                        if (rbPostOrder.isSelected()) {
+                            ArrayList<BSTUzol> zoznam = s.postOrder();
+                            for (BSTUzol uzol : zoznam) {
+                                br.append(uzol.getHod() + " ");
+                            }
+                        }
+                        if (rbPreOrder.isSelected()) {
+                            ArrayList<BSTUzol> zoznam = s.preOrder(true);
+                            for (BSTUzol uzol : zoznam) {
+                                br.append(uzol.getHod() + " ");
+                            }
+
+                        }
+                        s.panel.kom.pridajKomentar(br.toString());
+                    }
+                }).start();
+
             }
         }
     }

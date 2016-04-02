@@ -14,10 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
-
-
-
 /**
  *
  * @author ondrej
@@ -32,11 +28,7 @@ public class VisualizationDataStructure {
         } catch (ParseException ex) {
             Logger.getLogger(VisualizationDataStructure.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-
-           
-           
-        
+    
     }
 
     /**

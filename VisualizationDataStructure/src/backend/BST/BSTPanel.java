@@ -8,11 +8,9 @@ package backend.BST;
 
 import backend.Komentare;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
@@ -28,11 +26,11 @@ import visualizationdatastructure.Scena;
 public class BSTPanel extends JPanel{
     
     
-    TitledBorder border;
-    int sirka,vyska;
+    private TitledBorder border;
+    private int sirka,vyska;
     public BST strom;
-    Scena scena;
-    Komentare kom;
+    public Scena scena;
+    public Komentare kom;
     /**
      * Konštruktor ktorý nastaví všetky potrebne parametre pre zobrazenie
      * panelu ako su lokcia, velkosť a grafické zobrazenie. Potom vytvorí 
@@ -60,12 +58,7 @@ public class BSTPanel extends JPanel{
         
         initBST();
         initScenu();
-        
-        
-        
-        JButton b=new JButton("aaaaaaaaaaa");
-        b.setPreferredSize(new Dimension((int)(sirka*0.33), vyska));
-        
+       
         JScrollPane scrollpane=initKomentare();
         add(scrollpane,BorderLayout.LINE_END);
         
@@ -119,5 +112,9 @@ public class BSTPanel extends JPanel{
         scrollPane.setViewportView(kom);
         scrollPane.setBorder(BorderFactory.createTitledBorder(""));
         return scrollPane;
+    }
+    
+    public String getMenoDS(){
+        return strom.getName();
     }
 }

@@ -21,11 +21,11 @@ import javax.swing.text.StyledDocument;
  */
 public class Komentare extends JTextPane {
 
-    ArrayList<String> text;
-    StyledDocument doc;
-    SimpleAttributeSet normal;
-    SimpleAttributeSet bold;
-    SimpleAttributeSet titulok;
+    private ArrayList<String> text;
+    private StyledDocument doc;
+    private SimpleAttributeSet normal;
+    private SimpleAttributeSet bold;
+    private SimpleAttributeSet titulok;
     //String s="Ja som toto zvladol neviem ci funguje az tak dobre ako si myslim ale uvidim teraz";
 
     public Komentare() {

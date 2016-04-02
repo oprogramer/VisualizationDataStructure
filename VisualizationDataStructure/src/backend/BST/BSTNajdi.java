@@ -20,9 +20,9 @@ import visualizationdatastructure.Scena;
  * @author ondrej
  */
 public class BSTNajdi implements Runnable{
-    Thread vlakno;
-    BST DS;
-    int hod;
+    private Thread vlakno;
+    private BST DS;
+    private int hod;
     
     /**
      * Konštruktor ktorý vytvorý nový objekt triedy. Nastavy hodnoty pre
