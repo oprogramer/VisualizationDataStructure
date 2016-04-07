@@ -13,13 +13,13 @@ package ui;
 public class Nadpisy {
     public static String nadpis="Vizualizácia Údajových štruktúr";
     public static String menuSubor="Súbor";
-    public static String menuStruktury="Štruktúry";
+    //ovladanietoopublic static String menuStruktury="Štruktúry";
     public static String menuItemNovy="Nový";
     public static String menuItemOtvorit="Otvoriť";
     public static String menuItemUloziť="Uložiť";
-    public static String menuItemHash="HashTable";
+    //public static String menuItemHash="HashTable";
     public static String koniec="Zavrieť";
-    public static String menuItemStromy="Stromy";
+    //public static String menuItemStromy="Stromy";
     public static String ovladanie="Ovládanie";
     public static String btnVloz="Vloz";
     public static String btnNajdi="Nájdi";

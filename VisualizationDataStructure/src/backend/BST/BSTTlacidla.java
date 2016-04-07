@@ -5,7 +5,7 @@
  */
 package backend.BST;
 
-import backend.Komentare;
+import ui.Komentare;
 import backend.Struktury;
 import backend.Uzol;
 import java.awt.BorderLayout;

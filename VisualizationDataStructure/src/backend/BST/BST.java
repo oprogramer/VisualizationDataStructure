@@ -220,57 +220,6 @@ public class BST extends Struktury {
     }
 
     /**
-     * Rekurzivna metoda ktorá vypiše hodnoty všetkých uzlov v poradi inorder.
-     * Najprv pojde rekurzívne do celkom najlavejšiho podstromu tj uzla v
-     * strome, potom vypiše uzol a potom pojde do praveho podstromu, ked to bude
-     * iba uzol, tak ho vypiše, ked nie tak pojde do je vypisať jeho podstromy.
-     * Nasledne sa vracame ku korenu podstromu a ho vypise a zopakujeme pre
-     * pravy podstrom
-     *
-     * @param root - uzol z ktorého začne vypisovať
-     */
-    public void inorderRec(BSTUzol root) {
-        if (root != null) {
-            inorderRec(root.getLavySyn());
-            System.err.print(root.getHod() + " ");
-            inorderRec(root.getPravySyn());
-        }
-    }
-
-    /**
-     * Rekurzívna metoda ktorá vypiše hodnoty všetkých uzlov v poradí preorder.
-     * Najprv vypise koren stromu alebo podstromu a potom skuša lavý podstrom,
-     * ked už lavy neexistuje tak skuša pravý.
-     *
-     * @param root - uzol z ktorého začne vypisovať
-     */
-    public void preorder(BSTUzol root) {
-        if (root != null) {
-            System.err.print(root.getHod() + " ");
-            inorderRec(root.getLavySyn());
-            inorderRec(root.getPravySyn());
-        }
-    }
-
-    /**
-     * Rekurzívna metoda ktorá vypiše hodnoty všetkých uzlov v poradí postorder.
-     * Najprv skuša lavý podstrom a tak až pokim existuje lavy uzol, ked
-     * neexistuje lavy uzol tak skuša pravy podstrom až pokim existuje pravy
-     * uzol, ked už nebude ani pravy tak sa vracia späť a vypise koren
-     * podstromu.
-     *
-     * @param root - uzol z ktorého začne vypisovať
-     */
-    public void postorder(BSTUzol root) {
-        if (root != null) {
-
-            inorderRec(root.getLavySyn());
-            inorderRec(root.getPravySyn());
-            System.err.print(root.getHod() + " ");
-        }
-    }
-
-    /**
      * Metoda nastavi hodnotu null pre premennu novy aby viac nevykresľovalo
      * osobitný uzol.
      */
@@ -286,7 +235,17 @@ public class BST extends Struktury {
         ppreOrder(preorder, koren, pvypis);
         return preorder;
     }
-
+    
+    /**
+     * Rekurzívna metoda ktorá vypiše hodnoty všetkých uzlov v poradí preorder.
+     * Najprv vypise koren stromu alebo podstromu a potom skuša lavý podstrom,
+     * ked už lavy neexistuje tak skuša pravý.
+     *
+     * 
+     * @param ppostOrder - ArrayList do ktorého sa budú pridavať uzly
+     * @param pUzol - uzol od ktorého ma začať vypis
+     * @param pvypis - naznak či ide o vypis alebo nie
+     */
     private void ppreOrder(ArrayList<Uzol> pPreOrder, BSTUzol pUzol, boolean pvypis) {
         pPreOrder.add(pUzol);
         if (pvypis) {
@@ -306,6 +265,17 @@ public class BST extends Struktury {
         pUzol.setFarbu(FarbaUzlu.normalny);
     }
 
+    /**
+     * Rekurzivna metoda ktorá vypiše hodnoty všetkých uzlov v poradi inorder.
+     * Najprv pojde rekurzívne do celkom najlavejšiho podstromu tj uzla v
+     * strome, potom vypiše uzol a potom pojde do praveho podstromu, ked to bude
+     * iba uzol, tak ho vypiše, ked nie tak pojde do je vypisať jeho podstromy.
+     * Nasledne sa vracame ku korenu podstromu a ho vypise a zopakujeme pre
+     * pravy podstrom
+     *
+     * @param pInOrder - ArrayList do ktorého sa budú pridavať uzly
+     * @param pUzol - uzol od ktorého ma začať vypis
+     */
     private void pinOrder(ArrayList<Uzol> pInOrder, BSTUzol pUzol) {
 
         if (pUzol.getLavySyn() != null) {
@@ -322,7 +292,16 @@ public class BST extends Struktury {
         }
         pUzol.setFarbu(FarbaUzlu.normalny);
     }
-
+    /**
+     * Rekurzívna metoda ktorá vypiše hodnoty všetkých uzlov v poradí postorder.
+     * Najprv skuša lavý podstrom a tak až pokim existuje lavy uzol, ked
+     * neexistuje lavy uzol tak skuša pravy podstrom až pokim existuje pravy
+     * uzol, ked už nebude ani pravy tak sa vracia späť a vypise koren
+     * podstromu.
+     *
+     * @param ppostOrder - ArrayList do ktorého sa budú pridavať uzly
+     * @param pUzol - uzol od ktorého ma začať vypis
+     */
     private void ppostOrder(ArrayList<Uzol> ppostOrder, BSTUzol pUzol) {
 
         if (pUzol.getLavySyn() != null) {

@@ -18,15 +18,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author ondrej
  */
-public class VisualizationDataStructure {
+public class HlavneOknoMain {
 
     private static void initLookAndFeel() {
         try {
             UIManager.setLookAndFeel(new SyntheticaSkyMetallicLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(VisualizationDataStructure.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HlavneOknoMain.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(VisualizationDataStructure.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HlavneOknoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }

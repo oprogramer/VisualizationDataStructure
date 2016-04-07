@@ -6,7 +6,7 @@
 package backend.BST;
 
 
-import backend.Komentare;
+import ui.Komentare;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
