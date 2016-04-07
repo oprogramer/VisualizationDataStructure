@@ -8,6 +8,7 @@ package backend;
 
 import backend.BST.BSTUzol;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 
 /**
@@ -84,7 +85,7 @@ public abstract class Struktury {
      * 
      * @param pPoradie - reťazec ktorý predstavuje poradie vypisu
      */
-    public abstract void vypis(String pPoradie);
+    public abstract ArrayList<Uzol> vypis(String pPoradie);
     
     
 }

@@ -2,9 +2,10 @@ package backend.BST;
 
 import backend.FarbaUzlu;
 import backend.Struktury;
+import backend.Uzol;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import visualizationdatastructure.Scena;
+import ui.Scena;
 
 /**
  * Trieda ktorá predstavuje údajovú štruktúru binarného vyhladávacieho stromu.
@@ -191,19 +192,31 @@ public class BST extends Struktury {
      * preorder, inorder, postorder
      */
     @Override
-    public void vypis(String pPoradie) {
+    public ArrayList<Uzol> vypis(String pPoradie) {
+        ArrayList<Uzol> zoznam=new ArrayList<Uzol>();
         switch (pPoradie) {
+            
             case "inorder": {
-                inorderRec(koren);
+                panel.kom.zmazKomentare();
+                panel.kom.pridajKomentar("Vypis prvkov v poradi inOrder");
+                pinOrder(zoznam, koren);
                 break;
             }
             case "preorder": {
+                panel.kom.zmazKomentare();
+                panel.kom.pridajKomentar("Vypis prvkov v poradi preOrder");
+                ppreOrder(zoznam, koren, true);
                 break;
             }
             case "postorder": {
+                panel.kom.zmazKomentare();
+                panel.kom.pridajKomentar("Vypis prvkov v poradi postOrder");
+                ppostOrder(zoznam, koren);
                 break;
             }
+            default:{}
         }
+        return zoznam;
     }
 
     /**
@@ -267,23 +280,19 @@ public class BST extends Struktury {
 
     //Metody preorder, inorder a postorder na vypis prvkov
     public ArrayList preOrder(boolean pvypis) {
-        ArrayList<BSTUzol> preorder = new ArrayList<BSTUzol>();
-        if (pvypis) {
-            panel.kom.zmazKomentare();
-            panel.kom.pridajKomentar("Vypis prvkov v poradi preOrder");
-
-        }
+        ArrayList<Uzol> preorder = new ArrayList<Uzol>();
+        
         if(koren!=null)
         ppreOrder(preorder, koren, pvypis);
         return preorder;
     }
 
-    private void ppreOrder(ArrayList<BSTUzol> pPreOrder, BSTUzol pUzol, boolean pvypis) {
+    private void ppreOrder(ArrayList<Uzol> pPreOrder, BSTUzol pUzol, boolean pvypis) {
         pPreOrder.add(pUzol);
         if (pvypis) {
             pUzol.setFarbu(FarbaUzlu.najdeny);
 
-            panel.kom.pridajKomentar("" + pUzol.getStringHod());
+           // panel.kom.pridajKomentar("" + pUzol.getStringHod());
             Scena.pause(1000);
 
         }
@@ -297,16 +306,7 @@ public class BST extends Struktury {
         pUzol.setFarbu(FarbaUzlu.normalny);
     }
 
-    public ArrayList inOrder() {
-        ArrayList<BSTUzol> inorder = new ArrayList<BSTUzol>();
-        panel.kom.zmazKomentare();
-        panel.kom.pridajKomentar("Vypis prvkov v poradi inOrder");
-        if(koren!=null)
-        pinOrder(inorder, koren);
-        return inorder;
-    }
-
-    private void pinOrder(ArrayList<BSTUzol> pInOrder, BSTUzol pUzol) {
+    private void pinOrder(ArrayList<Uzol> pInOrder, BSTUzol pUzol) {
 
         if (pUzol.getLavySyn() != null) {
             pinOrder(pInOrder, pUzol.getLavySyn());
@@ -314,7 +314,7 @@ public class BST extends Struktury {
         pInOrder.add(pUzol);
         pUzol.setFarbu(FarbaUzlu.najdeny);
 
-        panel.kom.pridajKomentar("" + pUzol.getStringHod());
+        //panel.kom.pridajKomentar("" + pUzol.getStringHod());
         Scena.pause(1000);
 
         if (pUzol.getPravySyn() != null) {
@@ -323,16 +323,7 @@ public class BST extends Struktury {
         pUzol.setFarbu(FarbaUzlu.normalny);
     }
 
-    public ArrayList postOrder() {
-        ArrayList<BSTUzol> postorder = new ArrayList<BSTUzol>();
-        panel.kom.zmazKomentare();
-        panel.kom.pridajKomentar("Vypis prvkov v poradi postOrder");
-        if(koren!=null)
-        ppostOrder(postorder, koren);
-        return postorder;
-    }
-
-    private void ppostOrder(ArrayList<BSTUzol> ppostOrder, BSTUzol pUzol) {
+    private void ppostOrder(ArrayList<Uzol> ppostOrder, BSTUzol pUzol) {
 
         if (pUzol.getLavySyn() != null) {
             ppostOrder(ppostOrder, pUzol.getLavySyn());
@@ -344,7 +335,7 @@ public class BST extends Struktury {
         ppostOrder.add(pUzol);
         pUzol.setFarbu(FarbaUzlu.najdeny);
 
-        panel.kom.pridajKomentar("" + pUzol.getStringHod());
+        //panel.kom.pridajKomentar("" + pUzol.getStringHod());
         Scena.pause(1000);
         pUzol.setFarbu(FarbaUzlu.normalny);
     }

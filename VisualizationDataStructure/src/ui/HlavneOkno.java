@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package visualizationdatastructure;
+package ui;
 
 import backend.BST.BSTPanel;
 import backend.BST.BSTUzol;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,8 +18,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -101,7 +96,7 @@ public class HlavneOkno extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         //Vytvorime polozky do menu bar
         JMenu subor = new JMenu(Nadpisy.menuSubor);
-        JMenu struktury = new JMenu(Nadpisy.menuStruktury);
+        //JMenu struktury = new JMenu(Nadpisy.menuStruktury);
         //Vytvorime menuItems ktore pridame do polozkov menu
         //Pre menu Subor
         //Polozka novy v ponuky subor
@@ -126,21 +121,21 @@ public class HlavneOkno extends JFrame {
         //polozka stromy pre zobrazenie udajovej strukturz 
         //t.j. pre zobrazenie TabbedPane s ponukou vsetkych naimplementovanych 
         //udajovvych struktur ktore su stromami
-        MojMenuItem stromy = new MojMenuItem(Nadpisy.menuItemStromy);
-        stromy.setActionCommand("stromy");
-        MojMenuItem hashtable = new MojMenuItem(Nadpisy.menuItemHash);
-        hashtable.setActionCommand("hashtable");
+////        MojMenuItem stromy = new MojMenuItem(Nadpisy.menuItemStromy);
+////        stromy.setActionCommand("stromy");
+////        MojMenuItem hashtable = new MojMenuItem(Nadpisy.menuItemHash);
+////        hashtable.setActionCommand("hashtable");
         //Pridame menu items do polozky v menu
         subor.add(novy);
         subor.add(otvorit);
         subor.add(ulozit);
         subor.add(zavriet);
 
-        struktury.add(stromy);
-        struktury.add(hashtable);
+//        struktury.add(stromy);
+//        struktury.add(hashtable);
 
         menuBar.add(subor);
-        menuBar.add(struktury);
+        //menuBar.add(struktury);
 
         this.setJMenuBar(menuBar);
 
@@ -198,9 +193,10 @@ public class HlavneOkno extends JFrame {
                             public void run() {
                                 switch(currentDS){
                                     case "Stromy":{
+                                        
                                         switch(pane.getSelectedIndex()){
                                             case 0:{
-                                                
+                                                bstPanel.strom.clean();
                                                 for(String hod:tokens){
                                                     bstPanel.strom.vloz(Integer.parseInt(hod));
                                                 }
@@ -238,8 +234,14 @@ public class HlavneOkno extends JFrame {
                                     if (result == JFileChooser.APPROVE_OPTION) {
 
                                         try {
-                                            File selectedFile = new File(fileChooser.getSelectedFile().getCanonicalPath()+".txt");
-                                            System.out.println(""+selectedFile.getName());
+                                            
+                                            File selectedFile =fileChooser.getSelectedFile();
+                                            if(!selectedFile.toString().endsWith(".txt")){
+                                                selectedFile = new File(selectedFile.getCanonicalPath()+".txt");
+                                            }
+                                            
+                                            
+                                            
                                             FileWriter fw = new FileWriter(selectedFile.getPath());
                                             fw.write(sb.toString());
                                             fw.flush();
@@ -257,7 +259,7 @@ public class HlavneOkno extends JFrame {
                             }
                         }
                         case "HashTable": {
-
+                            
                         }
                     }
                     break;

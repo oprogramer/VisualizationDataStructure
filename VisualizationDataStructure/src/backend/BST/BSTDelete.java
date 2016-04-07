@@ -4,7 +4,7 @@ import backend.FarbaUzlu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import visualizationdatastructure.Scena;
+import ui.Scena;
 
 /**
  * Trieda je algoritmus na zmazanie prvku z údajovej štruktúry binarny 
@@ -102,7 +102,7 @@ public class BSTDelete implements Runnable {
     private BSTUzol Zmaz(BSTUzol pUzol, int pHod) {
 
         if (DS.getKoren() == null) {
-            pridajKomentar("Strom je prazny, nie je čo mazať.");
+            pridajKomentar("Strom je prázdny, nie je čo mazať.");
             return DS.getKoren();
         }
         
@@ -126,7 +126,7 @@ public class BSTDelete implements Runnable {
             if (pUzol.getLavySyn() == null) {
                
                 if (pUzol.getPravySyn() != null) {
-                    pridajKomentar("Najdený. \nPripad II: Uzol "+pUzol.getHod()+" nemá ľaveého"
+                    pridajKomentar("Nájdený. \nPripad II: Uzol "+pUzol.getHod()+" nemá ľavého"
                         + "potomka. Uzol "+pUzol.getHod()+" zmažeme tak, že jeho pravého potomka "
                             + "pripojíme na jeho rodiča");
                     pUzol.getPravySyn().setRodic(pUzol.getRodic());
@@ -135,7 +135,7 @@ public class BSTDelete implements Runnable {
                     pause();
                     pUzol.getPravySyn().odznac();
                 }else{
-                     pridajKomentar("Najdený. \nPripad I: Uzol "+pUzol.getHod()+" nemá ani jedného "
+                     pridajKomentar("Nájdený. \nPripad I: Uzol "+pUzol.getHod()+" nemá ani jedného "
                         + "potomka. Može sa jednoducho zmazať.");
                 }
                 pUzol.setRodic(null);
@@ -143,7 +143,7 @@ public class BSTDelete implements Runnable {
                 
                 return pUzol.getPravySyn();
             } else if (pUzol.getPravySyn() == null) {
-                pridajKomentar("Najdený. \nPripad II: Uzol "+pUzol.getHod()+" nemá pravého"
+                pridajKomentar("Nájdený. \nPripad II: Uzol "+pUzol.getHod()+" nemá pravého"
                         + "potomka. Uzol "+pUzol.getHod()+" zmažeme tak, že jeho ľavého potomka "
                             + "pripojíme na jeho rodiča");
                 pUzol.getLavySyn().setRodic(pUzol.getRodic());
@@ -157,8 +157,8 @@ public class BSTDelete implements Runnable {
                 return pUzol.getLavySyn();
             } else {
                 
-                pridajKomentar("Najdený. \nPripad III: Uzol "+pUzol.getHod()+" ná oboch"
-                        + "potomkov. Uzol "+pUzol.getHod()+" zmažeme tak, že najdeme najmenší "
+                pridajKomentar("Nájdený. \nPripad III: Uzol "+pUzol.getHod()+" na oboch"
+                        + "potomkov. Uzol "+pUzol.getHod()+" zmažeme tak, že nájdeme najmenší "
                             + "prvok v jeho pravom podstrome, s ktorým ho vymeníme. Ten prvok"
                         + "bude mať najviac jedného syna a bude sa dať ľahko zmazať.");
                 
@@ -253,8 +253,8 @@ public class BSTDelete implements Runnable {
                 
                 //Nastavime praveho syna na uzol ktorý vrati metoda zmaz pre 
                 //preveho syna uzla z praveho podstromu
-                pridajKomentar("Pokračujeme tak, že zase najdeme uzol ktorý chceme zmazať. Teraz by "
-                        + "mal obsahovať najviac jedneho syna tak ho vieme zmazať.");
+                pridajKomentar("Pokračujeme tak, že zase nájdeme uzol ktorý chceme zmazať. Teraz by "
+                        + "mal obsahovať najviac jedného syna tak ho vieme zmazať.");
                 uzol.setPravySyn(Zmaz(uzol.getPravySyn(), pUzol.getHod()));
                 uzol.odznac();
                 uzol.setFarbu(FarbaUzlu.normalny);
@@ -281,7 +281,7 @@ public class BSTDelete implements Runnable {
             pause();
             pUzol.odznac();
             pUzol = pUzol.getLavySyn();
-            pridajKomentar("Získame laveho potomka.");
+            pridajKomentar("Získame ľavého potomka.");
         }
         pUzol.setFarbu(FarbaUzlu.najdeny);
         

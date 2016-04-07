@@ -8,7 +8,7 @@ package backend.BST;
 import backend.FarbaUzlu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import visualizationdatastructure.Scena;
+import ui.Scena;
 
 /**
  * Trieda je algoritmus na vloženie nového prvku do údajovej štruktúry binarny 
@@ -71,7 +71,7 @@ public class BSTVloz implements Runnable {
         
         if (DS.getKoren() == null) {
             
-            pridajKomentar("Dátova štrukturá neobsahuje uzly takže nový uzol nastavieme ako koreň stromu.");
+            pridajKomentar("Dátová štruktúra neobsahuje uzly takže nový uzol nastavíme ako koreň stromu.");
             
             u.setSuradnice(DS.panel.scena.getWidth() / 2, 50);
             DS.setKoren(u);

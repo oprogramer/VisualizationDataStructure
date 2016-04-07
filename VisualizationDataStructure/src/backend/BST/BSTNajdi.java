@@ -8,7 +8,7 @@ package backend.BST;
 import backend.FarbaUzlu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import visualizationdatastructure.Scena;
+import ui.Scena;
 
 
 /**
@@ -70,7 +70,7 @@ public class BSTNajdi implements Runnable{
         pause();
         
         if(pUzol.getHod()==pHod){
-            pridajKomentar("Najdený.");
+            pridajKomentar("Nájdený.");
             pUzol.setFarbu(FarbaUzlu.najdeny);
             pause();
             pUzol.setFarbu(FarbaUzlu.normalny);

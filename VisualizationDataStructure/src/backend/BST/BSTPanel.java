@@ -14,7 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
-import visualizationdatastructure.Scena;
+import ui.Scena;
 
 /**
  * Trieda obsahuje konponenty ako su scena, tlačidla a komentáre. Prvo vytvorí
@@ -62,7 +62,7 @@ public class BSTPanel extends JPanel{
         JScrollPane scrollpane=initKomentare();
         add(scrollpane,BorderLayout.LINE_END);
         
-        BSTTlacidla ovladanie=new BSTTlacidla(strom);
+        BSTTlacidla ovladanie=new BSTTlacidla(strom,this);
         add(ovladanie,BorderLayout.PAGE_END);
     }
     /**

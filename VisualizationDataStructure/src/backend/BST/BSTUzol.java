@@ -13,7 +13,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import visualizationdatastructure.Scena;
+import ui.Scena;
 
 /**
  * Trieda predstavuje uzol pre údajovú štruktúru binárny vyhľadávaci strom. 
