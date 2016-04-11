@@ -7,7 +7,9 @@ package ui;
 
 import backend.BST.BSTPanel;
 import backend.BST.BSTUzol;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,6 +30,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -58,6 +61,10 @@ public class HlavneOkno extends JFrame {
         initMenu();
         initOkno();
 
+        JLabel autor=new JLabel("(c) Ondrej Mihalek, 2016    ");
+        autor.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+        autor.setHorizontalAlignment(JLabel.RIGHT);
+        this.add(autor,BorderLayout.SOUTH);
         this.pack();
 
         this.setLocationRelativeTo(null);
