@@ -196,12 +196,13 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
                                 s.vloz(hod);
-                                poleVkladanie.setText("");
+                                
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
-
+                            poleVkladanie.setText("");
                         }
+                        
                         zpristupni(true);
                     }
                 }).start();
@@ -219,11 +220,13 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
                                 s.najdi(hod);
-                                poleVkladanie.setText("");
+                                
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
+                            poleVkladanie.setText("");
                         }
+                        
                         zpristupni(true);
                     }
                 }).start();
@@ -241,11 +244,13 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
                                 s.zmaz(hod);
-                                poleVkladanie.setText("");
+                                
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
+                            poleVkladanie.setText("");
                         }
+                       
                         zpristupni(true);
                     }
                 }).start();
@@ -253,6 +258,8 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                 break;
             }
             case "clear": {
+                
+                panel.kom.zmazKomentare();
                 s.clean();
                 break;
             }
@@ -276,7 +283,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
 
-                                poleVkladanie.setText("");
+                                
                                 for (int i = 0; i < hod; i++) {
                                     int hodv = rand.nextInt(100);
 
@@ -286,6 +293,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             } catch (Exception ex) {
                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
+                            poleVkladanie.setText("");
                         }
                         zpristupni(true);
 
@@ -436,6 +444,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
     }
 
     private void zpristupni(boolean pZ) {
+        poleVkladanie.setEnabled(pZ);
         vloz.setEnabled(pZ);
         najdi.setEnabled(pZ);
         zmaz.setEnabled(pZ);

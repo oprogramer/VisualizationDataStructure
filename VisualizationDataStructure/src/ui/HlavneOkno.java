@@ -74,6 +74,7 @@ public class HlavneOkno extends JFrame {
                 }
 
                 pane.add("BST", bstPanel);
+                pane.setToolTipTextAt(0, Nadpisy.tooltipBST);
                 break;
             }
             case "HashTable": {

@@ -78,6 +78,8 @@ public class Komentare extends JTextPane {
     }
 
     public void zmazKomentare() {
+        
         text.clear();
+        dodaj();
     }
 }

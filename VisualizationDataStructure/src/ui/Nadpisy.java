@@ -40,4 +40,5 @@ public class Nadpisy {
     public static String tooltipsliderRychost="Ovládanie rýchlosti animácie algoritmu";
     public static String pomalsie="Pomalšie";
     public static String rychlejsie="Rýchlejšie";
+    public static String tooltipBST="Binárny vyhľdávací strom";
 }
