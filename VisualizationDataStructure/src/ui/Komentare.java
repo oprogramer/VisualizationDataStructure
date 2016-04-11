@@ -35,8 +35,8 @@ public class Komentare extends JTextPane {
         doc = this.getStyledDocument();
         normal = new SimpleAttributeSet();
         bold = new SimpleAttributeSet();
-        titulok=new SimpleAttributeSet();
-        
+        titulok = new SimpleAttributeSet();
+
         StyleConstants.setFontSize(normal, 14);
         StyleConstants.setFontSize(bold, 14);
         StyleConstants.setBold(bold, true);
@@ -52,17 +52,16 @@ public class Komentare extends JTextPane {
 
                 if (i == 0) {
                     doc.insertString(doc.getLength(), text.get(i) + "\n \n", titulok);
+                } else if (text.size() == 2) {
+                    doc.insertString(doc.getLength(),  text.get(i) + "\n", bold);
+                } else if (i == text.size() - 1) {
+
+                    doc.insertString(doc.getLength(), i + ". " + text.get(i) + "\n", bold);
+
                 } else {
-                    if (i == text.size() - 1) {
 
-                        doc.insertString(doc.getLength(), i+". "+text.get(i) + "\n", bold);
-                        
-
-                    } else {
-
-                        doc.insertString(doc.getLength(), i+". "+text.get(i) + "\n", normal);
-                        doc.insertString(doc.getLength(), "\n", null);
-                    }
+                    doc.insertString(doc.getLength(), i + ". " + text.get(i) + "\n", normal);
+                    doc.insertString(doc.getLength(), "\n", null);
                 }
 
             }
@@ -78,7 +77,7 @@ public class Komentare extends JTextPane {
     }
 
     public void zmazKomentare() {
-        
+
         text.clear();
         dodaj();
     }

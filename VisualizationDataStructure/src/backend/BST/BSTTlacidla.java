@@ -5,7 +5,6 @@
  */
 package backend.BST;
 
-
 import backend.Struktury;
 import backend.Uzol;
 import java.awt.BorderLayout;
@@ -56,7 +55,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
      *
      * @param pS - údajová štruktúra ktorú maju prvky ovladat.
      */
-    public BSTTlacidla(Struktury pS,BSTPanel pPanel) {
+    public BSTTlacidla(Struktury pS, BSTPanel pPanel) {
         setLayout(new BorderLayout(5, 5));
         border = BorderFactory.createTitledBorder("");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -66,7 +65,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
 
         preferedSize = new Dimension(75, 25);
         s = pS;
-        panel=pPanel;
+        panel = pPanel;
         JPanel prvy = initPrvyRiadok();
         JPanel druhy = initDruhyRiadok();
         JPanel slider = initSlider();
@@ -105,7 +104,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
         poleVkladanie.setMinimumSize(preferedSize);
         poleVkladanie.setPreferredSize(preferedSize);
         poleVkladanie.setToolTipText(Nadpisy.tooltiptxtVloz);
-                
+
         prvy.add(poleVkladanie);
         //Vlozime na panel talcidka pre vlozenie prvku, najdenie a zmazanie
         prvy.add(initBtnVloz());
@@ -169,11 +168,11 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                 BorderFactory.createEmptyBorder(0, 0, 10, 0));
         framesPerSecond.setPreferredSize(new Dimension(800, 15));
         Scena.setDelay(framesPerSecond.getValue() / FPS_INIT);
-        
+
         slider.add(new JLabel(Nadpisy.pomalsie));
         slider.add(framesPerSecond);
         slider.add(new JLabel(Nadpisy.rychlejsie));
-                
+
         return slider;
     }
 
@@ -196,13 +195,13 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
                                 s.vloz(hod);
-                                
+
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                             poleVkladanie.setText("");
                         }
-                        
+
                         zpristupni(true);
                     }
                 }).start();
@@ -220,13 +219,13 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
                                 s.najdi(hod);
-                                
+
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                             poleVkladanie.setText("");
                         }
-                        
+
                         zpristupni(true);
                     }
                 }).start();
@@ -244,13 +243,13 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
                                 s.zmaz(hod);
-                                
+
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                             poleVkladanie.setText("");
                         }
-                       
+
                         zpristupni(true);
                     }
                 }).start();
@@ -258,7 +257,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                 break;
             }
             case "clear": {
-                
+
                 panel.kom.zmazKomentare();
                 s.clean();
                 break;
@@ -283,7 +282,6 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                             try {
                                 int hod = Integer.parseInt(txt);
 
-                                
                                 for (int i = 0; i < hod; i++) {
                                     int hodv = rand.nextInt(100);
 
@@ -291,7 +289,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
 
                                 }
                             } catch (Exception ex) {
-                               JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
+                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                             poleVkladanie.setText("");
                         }
@@ -310,25 +308,37 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                         ArrayList<Uzol> zoznam;
                         if (rbInOrder.isSelected()) {
                             zoznam = s.vypis("inorder");
-                            for (Uzol uzol : zoznam) {
-                                br.append(uzol.getHod() + " ");
+                            if (zoznam.isEmpty()) {
+                                br.append("Strom je prázdny, nie je čo prehľadavať.");
+                            } else {
+                                for (Uzol uzol : zoznam) {
+                                    br.append(uzol.getHod() + " ");
+                                }
                             }
 
                         }
                         if (rbPostOrder.isSelected()) {
                             zoznam = s.vypis("postorder");
-                            for (Uzol uzol : zoznam) {
-                                br.append(uzol.getHod() + " ");
+                            if (zoznam.isEmpty()) {
+                                br.append("Strom je prázdny, nie je čo prehľadavať.");
+                            } else {
+                                for (Uzol uzol : zoznam) {
+                                    br.append(uzol.getHod() + " ");
+                                }
                             }
                         }
                         if (rbPreOrder.isSelected()) {
                             zoznam = s.vypis("preorder");
-                            for (Uzol uzol : zoznam) {
-                                br.append(uzol.getHod() + " ");
+                            if (zoznam.isEmpty()) {
+                                br.append("Strom je prázdny, nie je čo prehľadavať.");
+                            } else {
+                                for (Uzol uzol : zoznam) {
+                                    br.append(uzol.getHod() + " ");
+                                }
                             }
 
                         }
-                        
+
                         panel.kom.pridajKomentar(br.toString());
                     }
                 }).start();
@@ -385,7 +395,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
         zmaz.addActionListener(this);
         zmaz.setToolTipText(Nadpisy.tooltipbtnZmaz);
         zmaz.setActionCommand("zmaz");
-        zmaz.setPreferredSize(preferedSize);
+        //zmaz.setPreferredSize(preferedSize);
         return zmaz;
     }
 

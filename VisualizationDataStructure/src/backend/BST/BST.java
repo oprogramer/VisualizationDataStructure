@@ -198,19 +198,22 @@ public class BST extends Struktury {
             
             case "inorder": {
                 panel.kom.zmazKomentare();
-                 panel.kom.pridajKomentar("Výpis prvkov v poradí InOrder\n\nNajprv navštívime ľavý podstrom, potom koreň  a nakoniec pravý podstrom.\n");
+                panel.kom.pridajKomentar("Výpis prvkov v poradí InOrder\n\nNajprv navštívime ľavý podstrom, potom koreň  a nakoniec pravý podstrom.\n");
+                if(koren!=null)
                 pinOrder(zoznam, koren);
                 break;
             }
             case "preorder": {
                 panel.kom.zmazKomentare();
                 panel.kom.pridajKomentar("Výpis prvkov v poradí PreOrder\n\nNajprv navštívime koreň, potom  ľavý a pravý podstrom.\n");
+                if(koren!=null)
                 ppreOrder(zoznam, koren, true);
                 break;
             }
             case "postorder": {
                 panel.kom.zmazKomentare();
                 panel.kom.pridajKomentar("Výpis prvkov v poradí PostOrder\n\nNajprv navštívime ľavý a pravý podstrom, potom koreň.\n");
+                if(koren!=null)
                 ppostOrder(zoznam, koren);
                 break;
             }
