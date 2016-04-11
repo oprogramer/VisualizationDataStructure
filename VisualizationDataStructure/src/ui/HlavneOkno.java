@@ -77,11 +77,7 @@ public class HlavneOkno extends JFrame {
                 break;
             }
             case "HashTable": {
-                JPanel p = new JPanel();
-                JLabel l = new JLabel("Pripravuje sa");
-
-                p.add(l);
-                pane.add("HashTable", p);
+                
                 break;
             }
 

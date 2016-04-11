@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -34,7 +34,7 @@ public class BSTUzol extends Uzol {
     private int vyska; //je vyska stromu, vypocita sa tak ze kolko maju uzlov pravy a lavy podstrom
     //a vecsia hodnota z tych dvoch je vyska stromu, na zaciatku je 1
     private int vyskaPraveho, vyskaLaveho,pocetDeti;
-
+  
     /**
      * Tento konstruktor nastavi uzol suradnice na 0,0, Zavola konštruktor svojej
      * nadtriedy ktora nastaví suradnice na 0,0 a hodnotu uzlu. Potom nastavi
@@ -115,7 +115,7 @@ public class BSTUzol extends Uzol {
      * 
      * @param g - graficky kontext na ktory kresli
      */
-    @Override
+    @Override 
     public void nakresli(Graphics g) {
 
         if (!isRoot()) {
@@ -127,8 +127,6 @@ public class BSTUzol extends Uzol {
         g.setColor(farba.farbaUzadia);
         g.fillOval(x - velkost / 2, y - velkost / 2, velkost, velkost);
         if (oznaceny) {
-//            g.setColor(Color.red);
-//            g.drawOval(x - (velkost / 2), y - (velkost / 2) , velkost , velkost );
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(3));
             g2.setColor(Color.red);
@@ -225,6 +223,7 @@ public class BSTUzol extends Uzol {
 
     }
 
+   
     /**
      * Metoda pripočitava na suradnice hodnotu rozdielu medzi tox a x a toy a y
      * a tak opakuje predurčeny počet krokov.

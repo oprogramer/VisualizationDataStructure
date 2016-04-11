@@ -5,7 +5,7 @@
  */
 package backend.BST;
 
-import ui.Komentare;
+
 import backend.Struktury;
 import backend.Uzol;
 import java.awt.BorderLayout;
@@ -198,7 +198,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                                 s.vloz(hod);
                                 poleVkladanie.setText("");
                             } catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo");
+                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
 
                         }
@@ -221,7 +221,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                                 s.najdi(hod);
                                 poleVkladanie.setText("");
                             } catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo");
+                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                         }
                         zpristupni(true);
@@ -243,7 +243,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
                                 s.zmaz(hod);
                                 poleVkladanie.setText("");
                             } catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo");
+                                JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                         }
                         zpristupni(true);
@@ -284,7 +284,7 @@ public class BSTTlacidla extends JPanel implements ActionListener, ChangeListene
 
                                 }
                             } catch (Exception ex) {
-                               JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo");
+                               JOptionPane.showMessageDialog(null, "Musí byť vložené celé čislo!");
                             }
                         }
                         zpristupni(true);

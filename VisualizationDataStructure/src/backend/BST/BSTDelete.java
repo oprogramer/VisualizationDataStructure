@@ -253,8 +253,8 @@ public class BSTDelete implements Runnable {
                 
                 //Nastavime praveho syna na uzol ktorý vrati metoda zmaz pre 
                 //preveho syna uzla z praveho podstromu
-                pridajKomentar("Pokračujeme tak, že zase nájdeme uzol ktorý chceme zmazať. Teraz by "
-                        + "mal obsahovať najviac jedného syna tak ho vieme zmazať.");
+//                pridajKomentar("Pokračujeme tak, že zase nájdeme uzol ktorý chceme zmazať. Teraz by "
+//                        + "mal obsahovať najviac jedného syna tak ho vieme zmazať.");
                 uzol.setPravySyn(Zmaz(uzol.getPravySyn(), pUzol.getHod()));
                 uzol.odznac();
                 uzol.setFarbu(FarbaUzlu.normalny);

@@ -58,7 +58,7 @@ public class BSTNajdi implements Runnable{
     @Override
     public void run() {
         DS.panel.kom.zmazKomentare();
-        pridajKomentar("Hľadanie uzlu "+hod);
+        pridajKomentar("Hľadanie uzla "+hod);
         pridajKomentar("Začneme hľadať v koreni stromu.");
         Najdi(DS.getKoren(),hod);
         pridajKomentar("Koniec hľadania.");
@@ -80,20 +80,20 @@ public class BSTNajdi implements Runnable{
         if(pHod<pUzol.getHod()){
             
             if(pUzol.getLavySyn()==null){
-                pridajKomentar("Uzol s hodnotou "+ hod+" neexistuje v strome.");
+                pridajKomentar("Uzol s hodnotou "+ hod+" v strome neexistuje.");
                 pUzol.odznac();
             }else{
-                pridajKomentar("Kedže je "+hod+" menšia ako "+pUzol.getHod()+" tak budeme hľadať v ľavom podstrome.");
+                pridajKomentar("Hodnota "+hod+" je menšia ako "+pUzol.getHod()+", budeme hľadať ďalej v ľavom podstrome.");
                 pUzol.odznac();
                 Najdi(pUzol.getLavySyn(), pHod);
             }
         }
         if(pHod>pUzol.getHod()){
             if(pUzol.getPravySyn()==null){
-                pridajKomentar("Uzol s hodnotou "+ hod+" neexistuje v strome.");
+                pridajKomentar("Uzol s hodnotou "+ hod+" v strome neexistuje.");
                 pUzol.odznac();
             }else{
-                pridajKomentar("Kedže je "+hod+" večšia ako "+pUzol.getHod()+" tak budeme hľadať v pravom podstrome.");
+                pridajKomentar("Hodnota "+hod+" je väčšia ako "+pUzol.getHod()+",  budeme hľadať ďalej v pravom podstrome.");
                 pUzol.odznac();
                 Najdi(pUzol.getPravySyn(), pHod);
             }

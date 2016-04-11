@@ -52,15 +52,7 @@ public class Scena extends JComponent implements Runnable {
             animate=new Thread(this);
             animate.start();
         }
-    }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        
-//        repaint();
-//        
-//    }
-//
+    }  
     @Override
     public void paint(Graphics g) {
         super.paint(g);

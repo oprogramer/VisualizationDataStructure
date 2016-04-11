@@ -71,7 +71,7 @@ public class BSTVloz implements Runnable {
         
         if (DS.getKoren() == null) {
             
-            pridajKomentar("Dátová štruktúra neobsahuje uzly takže nový uzol nastavíme ako koreň stromu.");
+            pridajKomentar("Strom je prázdny, takže nový uzol bude koreňom stromu.");
             
             u.setSuradnice(DS.panel.scena.getWidth() / 2, 50);
             DS.setKoren(u);
@@ -119,6 +119,7 @@ public class BSTVloz implements Runnable {
         //Zahodime ho lebo v strome sa nemozu nachadzat rovnake hodnoty
         u.setSuradnice(pU.getX(), pU.getY()-35);
         pridajKomentar("Nový uzol porovnáme s uzlom "+pU.getHod()+".");
+        
         pause();
         if (pU.getHod() == u.getHod()) {
             pridajKomentar("Uzol už existuje");
@@ -131,11 +132,11 @@ public class BSTVloz implements Runnable {
             
             
             if (u.getHod() < pU.getHod()) {
-                pridajKomentar("Pretože je "+u.getHod()+" menšie ako "+pU.getHod()+" budeme nový uzol vkladať do lavého podstromu.");
+                pridajKomentar("Hodnota "+u.getHod()+" je menšia ako "+pU.getHod()+", nový uzol budeme preto vkladať do ľavého podstromu.");
                 if (pU.getLavySyn() == null) {
                     
-                    pridajKomentar("Pretože uzol "+pU.getHod()+" neobsahuje laveho potomka, "
-                            + "nový uzol nastavíme ako jeho lavý potomok.");
+                    pridajKomentar("Uzol "+pU.getHod()+" nemá ľavého syna, "
+                            + "nový uzol bude preto jeho ľavým synom.");
                     
                     u.setSuradnice(pU.getX() - u.getVelkost(), pU.getY() + u.getVelkost());
                     pU.setLavySyn(u);
@@ -147,11 +148,11 @@ public class BSTVloz implements Runnable {
                 }
             }
             if (u.getHod() > pU.getHod()) {
-                pridajKomentar("Pretože je "+u.getHod()+" večšie ako "+pU.getHod()+" budeme nový uzol vkladať do pravého podstromu.");
+                pridajKomentar("Hodnota "+u.getHod()+" je väčšia ako "+pU.getHod()+", nový uzol budeme preto vkladať do pravého podstromu.");
                 if (pU.getPravySyn() == null) {
                     
-                     pridajKomentar("Pretože uzol "+pU.getHod()+" neobsahuje pravého potomka, "
-                            + "nový uzol nastavíme ako jeho pravý potomok.");
+                    pridajKomentar("Uzol "+pU.getHod()+" nemá pravého syna, "
+                            + "nový uzol bude preto jeho pravým synom.");
                     
                     u.setSuradnice(pU.getX() + u.getVelkost(), pU.getY() + u.getVelkost());
                     pU.setPravySyn(u);
