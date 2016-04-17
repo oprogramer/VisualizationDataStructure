@@ -111,14 +111,24 @@ public class BSTDelete implements Runnable {
         pause();
         
         if (pHod < pUzol.getHod()) {
-            pUzol.odznac();
-            pridajKomentar("Kedže je "+hod+" menšia ako "+pUzol.getHod()+", tak budeme mazať uzol v ľavom podstrome.");
-            pUzol.setLavySyn(Zmaz(pUzol.getLavySyn(), pHod));
+            if (pUzol.getLavySyn()==null) {
+                pridajKomentar("Uzol s hodnotou "+ hod+" v strome neexistuje.");
+            }else{
+                pUzol.odznac();
+                pridajKomentar("Kedže je "+hod+" menšia ako "+pUzol.getHod()+", tak budeme mazať uzol v ľavom podstrome.");
+                pUzol.setLavySyn(Zmaz(pUzol.getLavySyn(), pHod));
+            }
+            
 
         } else if (pHod > pUzol.getHod()) {
-            pUzol.odznac();
-            pridajKomentar("Kedže je "+hod+" večšia ako "+pUzol.getHod()+", tak budeme mazať uzol v pravom podstrome. ");
-            pUzol.setPravySyn(Zmaz(pUzol.getPravySyn(), pHod));
+            if(pUzol.getPravySyn()==null){
+                pridajKomentar("Uzol s hodnotou "+ hod+" v strome neexistuje.");
+            }else{
+                pUzol.odznac();
+                pridajKomentar("Kedže je "+hod+" večšia ako "+pUzol.getHod()+", tak budeme mazať uzol v pravom podstrome. ");
+                pUzol.setPravySyn(Zmaz(pUzol.getPravySyn(), pHod));
+            }
+            
         } else if (pHod == pUzol.getHod()) {
             
             pUzol.setFarbu(FarbaUzlu.zmazani);
